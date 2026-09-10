@@ -35,4 +35,6 @@
   environment.systemPackages = with pkgs; [
     mcontrolcenter
   ];
+
+  boot.lanzaboote.measuredBoot.enable = true;
 }
