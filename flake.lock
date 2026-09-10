@@ -1105,19 +1105,19 @@
     },
     "nix-secrets": {
       "locked": {
-        "lastModified": 1786553398,
-        "narHash": "sha256-gVzRoWWZpySGbpgJafI7iec8ICiAxLbfNUQsqo9zCJc=",
+        "lastModified": 1787122623,
+        "narHash": "sha256-tKEoWPNlJUydGpY9HjoIlY37/rExPPWGzI3RIY4PosQ=",
         "ref": "main",
-        "rev": "7170978e6f0b3a381db3c8b1fe0eb0f968972535",
+        "rev": "8a7fffbec2bd499064017ef2c3dcfaeef2002e28",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/ProfiiDev/nix-secrets.git"
+        "url": "ssh://git@github.com/jojowaldi/nix-secrets.git"
       },
       "original": {
         "ref": "main",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/ProfiiDev/nix-secrets.git"
+        "url": "ssh://git@github.com/jojowaldi/nix-secrets.git"
       }
     },
     "nixpkgs": {
