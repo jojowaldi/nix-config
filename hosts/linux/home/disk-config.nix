@@ -5,7 +5,7 @@
     ../../disks/btrfs.nix
     {
       _module.args = {
-        disk = "/dev/disk/by-id/nvme-eui.0025384b3140a47d";
+        disk = "/dev/disk/by-id/nvme-CT1000P3PSSD8_233943C543A7";
         withSwap = true;
         swapSize = "32";
       };
