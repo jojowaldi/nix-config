@@ -1,9 +1,9 @@
-# NOTE: This ISO is NOT minimal. We don't want a minimal environment when using the iso for recovery purposes.
 {
   inputs,
   pkgs,
   lib,
   config,
+  modulesPath,
   ...
 }:
 
@@ -12,9 +12,8 @@ let
 in
 {
   imports = lib.flatten [
-    "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-    #"${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-    "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+    (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
+    (modulesPath + "/installer/cd-dvd/channel.nix")
     # This is overkill but I want my core home level utils if I need to use the iso environment for recovery purpose
     inputs.home-manager.nixosModules.home-manager
     (map lib.custom.relativeToRoot [
@@ -78,12 +77,13 @@ in
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    supportedFilesystems = lib.mkForce [
+    supportedFilesystems = [
       "btrfs"
       "vfat"
     ];
     loader.grub.memtest86.enable = lib.mkForce false;
   };
+
 
   networking = {
     hostName = "iso";
