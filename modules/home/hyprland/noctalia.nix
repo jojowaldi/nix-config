@@ -71,7 +71,7 @@
       lib.recursiveUpdate (fromTOML (builtins.readFile ../../../assets/shells/noctalia-settings.toml))
         {
           shell = {
-            avatar_path = ../../../assets/images/profidev.jpeg;
+            avatar_path = ../../../assets/images/profilepicture.jpeg;
           };
         };
   };

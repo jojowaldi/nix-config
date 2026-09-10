@@ -24,7 +24,7 @@
   hostSpec = {
     hostname = "laptop";
     users = [
-      inputs.nix-secrets.users.profidev
+      inputs.nix-secrets.users.jojowaldi
       {
         username = "root";
         secrets_user = "root";

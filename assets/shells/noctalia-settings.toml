@@ -215,7 +215,7 @@ details_widget_placement = "attached"
 [plugin_settings."pozzoo/hassio"]
 entity_manager_open_near_click = true
 entity_manager_placement = "attached"
-ha_url = "https://ha.profidev.io"
+ha_url = "https://home.jojowaldi.com"
 shortcut_entity_1 = "button.wake_on_lan_a8_a1_59_ad_3b_3b"
 shortcut_entity_2 = "input_button.benjamin_pc_aus"
 

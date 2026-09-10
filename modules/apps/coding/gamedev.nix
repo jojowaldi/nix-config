@@ -2,8 +2,8 @@
 
 {
   environment.systemPackages = with pkgs; [
-    godot
-    unityhub
-    _7zip-zstd
+    #godot
+    #unityhub
+    #_7zip-zstd
   ];
 }

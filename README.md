@@ -66,7 +66,7 @@ Eine modulare, deklarative Multi-Plattform-Systemkonfiguration für **NixOS (Lin
 │   ├── linux/                 # NixOS Host-Definitionen (home, laptop, iso)
 │   ├── mac/                   # Darwin Host-Definitionen (work)
 │   ├── profiles/              # Modulgruppen (general, system, services, apps, home)
-│   └── users/                 # Home-Manager Benutzerprofile (profidev, buergerb, root)
+│   └── users/                 # Home-Manager Benutzerprofile (jojowaldi, buergerb, root)
 ├── keys/                      # Öffentliche SSH-Schlüssel für Systemzugriff
 ├── lib/                       # Eigene Hilfsfunktionen (scanPaths, toTOML, relativeToRoot)
 ├── modules/                   # Alle System- und Home-Manager-Module
@@ -88,7 +88,6 @@ In `flake.nix` werden zentrale Substituter (Caches) sowie alle Abhängigkeiten d
 - **Binary Caches**:
   - `https://nix-community.cachix.org`
   - `https://projects.cache.profidev.io`
-  - Lokaler Cache (`http://192.168.178.22:80`)
 - **Kern-Inputs**:
   - `nixpkgs` (NixOS 25.05) & `nixpkgs-unstable`
   - `home-manager`
@@ -240,7 +239,7 @@ In `modules/services/core/security.nix`:
 In `modules/services/gui/sddm.nix`:
 - SDDM läuft als nativer Wayland-Display-Manager mit dem **KWin-Compositor**.
 - Minimalistisches schwarzes Design ohne Menüleisten oder Tastaturlayout-Auswahl.
-- Benutzer-Avatar eingebunden über `assets/images/profidev.jpeg`.
+- Benutzer-Avatar eingebunden über `assets/images/profilepicture.jpeg`.
 - Cursor: `Bibata-Modern-Ice` (Größe 24).
 
 ---

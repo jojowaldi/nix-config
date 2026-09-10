@@ -21,7 +21,6 @@
     apps.creative."3d"
     apps.creative."3d_print"
     apps.gaming.games
-    apps.tools.betaflight
     apps.tools.profiling
 
     ../../profiles/general.nix
@@ -33,7 +32,7 @@
   hostSpec = {
     hostname = "home";
     users = [
-      inputs.nix-secrets.users.profidev
+      inputs.nix-secrets.users.jojowaldi
       {
         username = "root";
         secrets_user = "root";

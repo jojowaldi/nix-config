@@ -3,7 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
     obs-studio
-    kdePackages.kdenlive
+    #kdePackages.kdenlive
     vlc
   ];
 }

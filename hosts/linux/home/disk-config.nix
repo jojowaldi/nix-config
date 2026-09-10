@@ -10,6 +10,5 @@
         swapSize = "32";
       };
     }
-    ./media-disk.nix
   ];
 }

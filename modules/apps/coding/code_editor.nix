@@ -4,13 +4,13 @@
   environment.systemPackages =
     with pkgs;
     [
-      jetbrains-toolbox
+      #jetbrains-toolbox
       zed-editor
     ]
     ++ (
       if isLinux then
         [
-          android-studio
+          #android-studio
         ]
       else
         [ ]

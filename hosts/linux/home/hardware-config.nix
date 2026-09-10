@@ -23,11 +23,11 @@
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [
-    "kvm-intel"
+    "kvm-amd"
     "sg"
   ];
   boot.extraModulePackages = [ ];
-  hardware.cpu.intel.updateMicrocode = true;
+  hardware.cpu.amd.updateMicrocode = true;
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

@@ -25,7 +25,7 @@
     positron.url = "github:profiidev/positron/latest";
     hibernation.url = "github:profiidev/hibernation/latest";
     nix-gaming.url = "github:fufexan/nix-gaming";
-    nix-secrets.url = "git+ssh://git@github.com/ProfiiDev/nix-secrets.git?ref=main&shallow=1";
+    nix-secrets.url = "git+ssh://git@github.com/jojowaldi/nix-secrets.git?ref=main&shallow=1";
     flake-utils.url = "github:numtide/flake-utils";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
