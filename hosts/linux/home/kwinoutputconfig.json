@@ -1,0 +1,97 @@
+[
+  {
+    "data": [
+      {
+        "allowDdcCi": true,
+        "allowSdrSoftwareBrightness": true,
+        "autoRotation": "InTabletMode",
+        "brightness": 1,
+        "colorPowerTradeoff": "PreferEfficiency",
+        "colorProfileSource": "sRGB",
+        "connectorName": "HDMI-A-1",
+        "detectedDdcCi": false,
+        "edidHash": "002fb7fb9ff8b5d5109ecc81400d6453",
+        "edidIdentifier": "SAM 3396 1113211974 49 2018 0",
+        "edrPolicy": "always",
+        "highDynamicRange": false,
+        "iccProfilePath": "",
+        "maxBitsPerColor": 0,
+        "mode": {
+          "height": 1080,
+          "refreshRate": 60000,
+          "width": 1920
+        },
+        "overscan": 0,
+        "rgbRange": "Automatic",
+        "scale": 1,
+        "sdrBrightness": 200,
+        "sdrGamutWideness": 0,
+        "transform": "Normal",
+        "uuid": "84bca192-68ee-4758-bfca-dd7b86d83c24",
+        "vrrPolicy": "Never",
+        "wideColorGamut": false
+      },
+      {
+        "allowDdcCi": true,
+        "allowSdrSoftwareBrightness": true,
+        "autoRotation": "InTabletMode",
+        "brightness": 1,
+        "colorPowerTradeoff": "PreferEfficiency",
+        "colorProfileSource": "sRGB",
+        "connectorName": "DP-1",
+        "detectedDdcCi": false,
+        "edidHash": "f32aeddeb05541b0076c37b9ef92a783",
+        "edidIdentifier": "HWV 25333 1 37 2021 0",
+        "edrPolicy": "always",
+        "highDynamicRange": false,
+        "iccProfilePath": "",
+        "maxBitsPerColor": 0,
+        "mode": {
+          "height": 1440,
+          "refreshRate": 164802,
+          "width": 2560
+        },
+        "overscan": 0,
+        "rgbRange": "Automatic",
+        "scale": 1,
+        "sdrBrightness": 455,
+        "sdrGamutWideness": 0,
+        "transform": "Normal",
+        "uuid": "845e921e-0ea1-45e6-a39a-db3bec0fd9de",
+        "vrrPolicy": "Never",
+        "wideColorGamut": false
+      }
+    ],
+    "name": "outputs"
+  },
+  {
+    "data": [
+      {
+        "lidClosed": false,
+        "outputs": [
+          {
+            "enabled": true,
+            "outputIndex": 0,
+            "position": {
+              "x": 2560,
+              "y": 180
+            },
+            "priority": 1,
+            "replicationSource": ""
+          },
+          {
+            "enabled": true,
+            "outputIndex": 1,
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "priority": 0,
+            "replicationSource": ""
+          }
+        ]
+      }
+    ],
+    "name": "setups"
+  }
+]

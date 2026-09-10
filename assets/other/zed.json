@@ -1,0 +1,370 @@
+{
+  "$schema": "zed://schemas/settings",
+  "cli_default_open_behavior": "new_window",
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "dock": "left",
+    "tree_view": false
+  },
+  "edit_predictions": {
+    "mode": "eager",
+    "provider": "copilot"
+  },
+  "completions": {
+    "words_min_length": 1
+  },
+  "title_bar": {
+    "show_branch_status_icon": true,
+    "show_menus": false
+  },
+  "prettier": {
+    "allowed": true
+  },
+  "toolbar": {
+    "code_actions": false
+  },
+  "load_direnv": "shell_hook",
+  "relative_line_numbers": "disabled",
+  "hover_popover_delay": 300,
+  "auto_update": false,
+  "context_servers": {
+    "nixos": {
+      "enabled": true,
+      "remote": false,
+      "command": "mcp-nixos",
+      "args": []
+    }
+  },
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "completion": {
+          "snippets": {
+            "custom": {
+              "Arc::new": {
+                "postfix": "arc",
+                "body": ["Arc::new(${receiver})"],
+                "requires": "std::sync::Arc",
+                "scope": "expr"
+              },
+              "Some": {
+                "postfix": "some",
+                "body": ["Some(${receiver})"],
+                "scope": "expr"
+              },
+              "Ok": {
+                "postfix": "ok",
+                "body": ["Ok(${receiver})"],
+                "scope": "expr"
+              },
+              "Rc::new": {
+                "postfix": "rc",
+                "body": ["Rc::new(${receiver})"],
+                "requires": "std::rc::Rc",
+                "scope": "expr"
+              },
+              "Box::pin": {
+                "postfix": "boxpin",
+                "body": ["Box::pin(${receiver})"],
+                "requires": "std::boxed::Box",
+                "scope": "expr"
+              },
+              "vec!": {
+                "postfix": "vec",
+                "body": ["vec![${receiver}]"],
+                "description": "vec![]",
+                "scope": "expr"
+              }
+            }
+          }
+        },
+        "check": {
+          "command": "clippy"
+        }
+      },
+      "enable_lsp_tasks": true,
+      "binary": {
+        "path": "direnv",
+        "arguments": ["exec", ".", "rust-analyzer"]
+      }
+    },
+    "nil": {
+      "settings": {
+        "nix": {
+          "flake": {
+            "autoArchive": true
+          }
+        }
+      }
+    },
+    "tailwindcss-language-server": {
+      "settings": {
+        "includeLanguages": {
+          "svelte": "html"
+        },
+        "experimental": {
+          "classRegex": [
+            "class=\"([^\"]*)\"",
+            "class='([^']*)'",
+            "class:\\s*([^\\s{]+)",
+            "\\{\\s*class:\\s*\"([^\"]*)\"",
+            "\\{\\s*class:\\s*'([^']*)'"
+          ]
+        }
+      }
+    }
+  },
+  "languages": {
+    "LaTeX": {
+      "formatter": {
+        "external": {
+          "command": "tex-fmt",
+          "arguments": ["--stdin"]
+        }
+      }
+    },
+    "Nix": {
+      "formatter": {
+        "external": {
+          "command": "nixfmt",
+          "arguments": []
+        }
+      }
+    },
+    "Rust": {
+      "formatter": "language_server"
+    },
+    "TOML": { "formatter": { "language_server": { "name": "oxfmt" } } },
+    "CSS": {
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "HTML": {
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "JavaScript": {
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "JSON": {
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "JSONC": {
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "Markdown": {
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "TypeScript": {
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "TSX": {
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "YAML": {
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "Svelte": {
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    }
+  },
+  "inlay_hints": {
+    "edit_debounce_ms": 200,
+    "enabled": true
+  },
+  "auto_signature_help": true,
+  "file_types": {
+    "Helm": [
+      "**/templates/**/*.tpl",
+      "**/templates/**/*.yaml",
+      "**/templates/**/*.yml",
+      "**/helmfile.d/**/*.yaml",
+      "**/helmfile.d/**/*.yml",
+      "**/values*.yaml"
+    ],
+    "GitHub Actions": [".github/workflows/*.yml", ".github/workflows/*.yaml"]
+  },
+  "icon_theme": "Material Icon Theme",
+  "agent": {
+    "dock": "right",
+    "model_parameters": [],
+    "default_model": {
+      "enable_thinking": true,
+      "provider": "copilot_chat",
+      "model": "claude-haiku-4.5"
+    }
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "vim_mode": true,
+  "vim": {
+    "use_smartcase_find": true,
+    "toggle_relative_line_numbers": true
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 14,
+  "theme": "Ayu Darker",
+  "format_on_save": "on",
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 1100
+    }
+  },
+  "diagnostics": {
+    "button": true,
+    "include_warnings": true,
+    "inline": {
+      "enabled": true,
+      "update_debounce_ms": 150,
+      "padding": 4,
+      "min_column": 0,
+      "max_severity": null
+    }
+  },
+  "tab_size": 2,
+  "auto_install_extensions": {
+    "docker-compose": true,
+    "dockerfile": true,
+    "html": true,
+    "material-icon-theme": true,
+    "nix": true,
+    "svelte": true,
+    "terraform": true,
+    "toml": true,
+    "fish": true,
+    "helm": true,
+    "glsl": true,
+    "git-firefly": true,
+    "java": true,
+    "latex": true,
+    "ayu-darker": true,
+    "rainbow-csv": true,
+    "codebook": true,
+    "live-server": true,
+    "discord-presence": true,
+    "qml": true,
+    "comment": true,
+    "github-actions": true,
+    "dependi": true,
+    "tombi": true,
+    "lua": true,
+    "proto": true,
+    "oxc": true,
+    "luau": true,
+    "pest": true,
+    "slint": true
+  },
+  "terminal": {
+    "toolbar": {
+      "breadcrumbs": false
+    },
+    "font_family": "FiraCode Nerd Font Mono",
+    "shell": {
+      "program": "fish"
+    }
+  },
+  "tabs": {
+    "file_icons": true,
+    "git_status": true,
+    "show_diagnostics": "all"
+  },
+  "project_panel": {
+    "dock": "left",
+    "hide_root": true
+  }
+}

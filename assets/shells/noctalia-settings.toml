@@ -1,0 +1,465 @@
+[audio]
+enable_sounds = true
+
+[bar]
+order = [ "default" ]
+
+    [bar.default]
+    capsule_thickness = 0.83999998494982719
+    center = [ "clock", "media" ]
+    end = [
+        "privacy",
+        "tray",
+        "group:g1",
+        "widget",
+        "nix-monitor",
+        "bar",
+        "status",
+        "bar_2",
+        "bluetooth",
+        "network",
+        "volume",
+        "battery",
+        "notifications",
+        "control-center"
+    ]
+    margin_edge = 0
+    margin_ends = 0
+    padding = 4
+    radius = 0
+    start = [ "launcher", "taskbar", "active_window" ]
+    thickness = 29
+
+        [[bar.default.capsule_group]]
+        enabled = true
+        fill = "surface_variant"
+        id = "g1"
+        members = [ "cpu", "temp", "ram", "network_rx", "network_tx", "sysmon" ]
+        opacity = 1.0
+        padding = 8.0
+
+[brightness]
+sync_all_monitors = true
+
+[calendar]
+enabled = true
+
+[control_center]
+sidebar_section = "none"
+
+[desktop_widgets]
+enabled = false
+schema_version = 2
+widget_order = []
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget]
+
+[dock]
+auto_hide = true
+background_opacity = 0.99999997764825821
+cross_axis_padding = 2
+enabled = true
+icon_size = 35
+item_spacing = 0
+main_axis_padding = 2
+reserve_space = false
+show_dots = true
+
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 600.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = false
+    timeout = 900.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 660.0
+
+[location]
+address = "Bad Aibling, Germany"
+
+[lockscreen]
+blur_intensity = 0.99999997764825821
+blurred_desktop = true
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@DP-1", "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    box_height = 196.0
+    box_width = 720.0
+    cx = 1280.0
+    cy = 1321.0
+    output = "DP-1"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    box_height = 196.0
+    box_width = 720.0
+    cx = 960.0
+    cy = 961.0
+    output = "HDMI-A-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 196.0
+    box_width = 720.0
+    cx = 800.0
+    cy = 877.0
+    output = "eDP-1"
+    placement_height = 0.0
+    placement_width = 0.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[notification]
+layer = "overlay"
+offset_x = 8
+
+[osd]
+background_opacity = 0.99999997764825821
+offset_y = 20
+position = "bottom_center"
+position_vertical = "bottom_center"
+
+    [osd.kinds]
+    media = false
+
+[plugin_settings."avivbintangaringga/nix-monitor"]
+hide_clean_button = true
+hide_update_button = true
+
+[plugin_settings."davemhammer/tailscale"]
+manager_placement = "attached"
+
+[plugin_settings."icefish/phone-connect"]
+battery_display = "hidden"
+details_floating_open_near_click = true
+details_floating_placement = "attached"
+details_widget_placement = "attached"
+
+[plugin_settings."pozzoo/hassio"]
+entity_manager_open_near_click = true
+entity_manager_placement = "attached"
+ha_url = "https://ha.profidev.io"
+shortcut_entity_1 = "button.wake_on_lan_a8_a1_59_ad_3b_3b"
+shortcut_entity_2 = "input_button.benjamin_pc_aus"
+
+[plugin_settings."profidev/hypr-screen-mirror"]
+panel_open_near_click = true
+panel_placement = "attached"
+
+[plugin_settings."rylos/tailnet"]
+hide_mullvad = false
+
+[plugins]
+enabled = [
+    "pozzoo/hassio",
+    "avivbintangaringga/nix-monitor",
+    "profidev/hypr-screen-mirror",
+    "icefish/phone-connect",
+    "rylos/tailnet"
+]
+
+[shell]
+avatar_path = "/nix/store/d1ys2ri119q9pw4nl4gc8iv9ayx2y209-profidev.jpeg"
+clipboard_enabled = false
+launch_apps_as_systemd_services = true
+polkit_agent = true
+screen_time_enabled = true
+settings_show_advanced = true
+
+    [shell.animation]
+    speed = 1.5000000223517418
+
+    [shell.launcher]
+    categories = false
+    compact = true
+    session_search = true
+
+    [shell.panel]
+    open_near_click_control_center = true
+    open_near_click_session = true
+
+    [shell.privacy]
+    mic_filter_regex = "gsr-alsa_input"
+
+    [shell.screen_corners]
+    enabled = true
+
+    [shell.session]
+    grid = true
+    grid_columns = 1
+
+        [[shell.session.actions]]
+        action = "lock"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "1"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "logout"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "2"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "lock_and_suspend"
+        countdown_seconds = 0.0
+        enabled = false
+        shortcut = "3"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "reboot"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "4"
+        variant = "default"
+
+        [[shell.session.actions]]
+        action = "shutdown"
+        countdown_seconds = 0.0
+        enabled = true
+        shortcut = "5"
+        variant = "destructive"
+
+[system.monitor]
+cpu_temp_activity_threshold = 80
+cpu_temp_critical_threshold = 90
+cpu_usage_activity_threshold = 80
+gpu_temp_activity_threshold = 75
+gpu_usage_activity_threshold = 80
+gpu_usage_critical_threshold = 90
+gpu_vram_activity_threshold = 80
+net_rx_activity_threshold = 100.0
+net_rx_critical_threshold = 100.0
+net_tx_activity_threshold = 100.0
+net_tx_critical_threshold = 100.0
+
+[theme]
+builtin = "Ayu"
+community_palette = "GitHub Dark"
+source = "community"
+
+[wallpaper]
+enabled = false
+
+[widget.active_window]
+capsule = true
+icon_size = 18
+max_length = 145
+title_scroll = "on_hover"
+
+[widget.bar]
+capsule = true
+capsule_padding = 4
+scale = 1.05
+type = "icefish/phone-connect:bar"
+
+[widget.bar_2]
+capsule = true
+capsule_padding = 4
+scale = 1.05
+show_count = false
+type = "rylos/tailnet:bar"
+
+[widget.battery]
+capsule = true
+capsule_padding = 4
+scale = 1.05
+
+[widget.bluetooth]
+capsule = true
+capsule_padding = 4
+scale = 1.05
+
+[widget.clock]
+capsule = true
+format = "{:%H:%M %a, %b %d}"
+tooltip_format = "{:%H:%M %a, %b %d}"
+vertical_format = "{:%H %M - %d %b}"
+
+[widget.control-center]
+capsule = true
+capsule_padding = 4
+scale = 1.05
+
+[widget.cpu]
+show_label = false
+show_value = false
+
+[widget.launcher]
+capsule = true
+capsule_padding = 4
+glyph = "rocket"
+scale = 1.05
+
+[widget.media]
+capsule = true
+hide_when_no_media = true
+max_length = 145
+title_scroll = "on_hover"
+
+[widget.network]
+capsule = true
+capsule_padding = 4
+scale = 1.05
+show_label = false
+
+[widget.network_rx]
+show_label = false
+show_value = false
+
+[widget.network_tx]
+show_label = false
+show_value = false
+
+[widget.nix-monitor]
+capsule = true
+capsule_padding = 4
+scale = 1.05
+show_text = false
+type = "avivbintangaringga/nix-monitor:nix-monitor"
+
+[widget.notifications]
+capsule = true
+capsule_padding = 4
+scale = 1.05
+
+[widget.privacy]
+capsule = true
+capsule_padding = 4
+hide_inactive = true
+scale = 1.05
+
+[widget.ram]
+show_label = false
+show_value = false
+
+[widget.status]
+capsule = true
+capsule_padding = 4
+scale = 1.05
+type = "pozzoo/hassio:status"
+
+[widget.status_2]
+capsule = true
+capsule_padding = 4
+scale = 1.05
+show_counts = false
+type = "davemhammer/tailscale:status"
+
+[widget.sysmon]
+capsule = true
+show_value = false
+stat = "disk_pct"
+
+[widget.taskbar]
+capsule_radius = "auto"
+focused_output_only = true
+font_weight = 700
+group_by_workspace = true
+hide_empty_workspaces = true
+
+[widget.temp]
+show_label = false
+show_value = false
+
+[widget.tray]
+capsule = true
+capsule_padding = 4
+hidden = [ "nm-applet", "udiskie", "wayscriber" ]
+scale = 1.05
+
+[widget.volume]
+capsule = true
+capsule_padding = 4
+scale = 1.05
+show_label = false
+
+[widget.widget]
+capsule = true
+capsule_padding = 4
+scale = 1.05
+type = "profidev/hypr-screen-mirror:widget"
+
+[widget.workspaces]
+capsule = true
+labels_only_when_occupied = true
