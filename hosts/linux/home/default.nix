@@ -10,7 +10,7 @@
     services.gui.nvidia
     services.gui.flatpak
     services.core.cooling
-    services.network.nix-serve
+    #services.network.nix-serve
     services.media.gpu-screen-recorder
     services.media.jellyfin
     services.media.ollama
