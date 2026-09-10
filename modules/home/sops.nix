@@ -60,11 +60,6 @@ in
             path = "${homeDirectory}/.ssh/id_${name}.pub";
           };
         }) generalKeys
-      )
-      // {
-        ha_token = {
-          sopsFile = "${sopsFolder}/shared.yaml";
-        };
-      };
+      );
   };
 }
