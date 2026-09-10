@@ -41,7 +41,7 @@
 
   fileSystems = {
     "/mnt/windows" = {
-      device = "/dev/disk/by-id/nvme-KINGSTON_SKC2500M81000G_50026B768523BA97-part3";
+      device = "/dev/disk/by-id/nvme-WD_BLACK_SN850X_2000GB_24123G800740_1-part3";
       fsType = "ntfs";
       mountPoint = "/mnt/windows";
       options = [
