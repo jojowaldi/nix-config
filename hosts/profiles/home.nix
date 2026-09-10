@@ -5,7 +5,6 @@
     home.sops
 
     home.tools.terminal
-    home.tools.yubikey
     home.tools.virtualization
 
     home.services.media

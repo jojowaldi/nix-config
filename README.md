@@ -19,7 +19,7 @@ Eine modulare, deklarative Multi-Plattform-Systemkonfiguration für **NixOS (Lin
    - [Secrets-Management (sops-nix & age)](#31-secrets-management-sops-nix--age)
    - [Festplattenverschlüsselung (LUKS + BTRFS + TPM2)](#32-festplattenverschlüsselung-luks--btrfs--tpm2)
    - [Secure Boot (Lanzaboote & sbctl)](#33-secure-boot-lanzaboote--sbctl)
-   - [Authentifizierung (YubiKey, PAM & Fingerprint)](#34-authentifizierung-yubikey-pam--fingerprint)
+   - [Authentifizierung & Keyring](#34-authentifizierung--keyring)
 4. [Desktop-Umgebung & UI (Hyprland, SDDM, Noctalia, Vicinae)](#4-desktop-umgebung--ui)
    - [Display Manager (SilentSDDM)](#41-display-manager-silentsddm)
    - [Hyprland & Lua-Konfiguration](#42-hyprland--lua-konfiguration)
@@ -140,7 +140,6 @@ In `hosts/spec.nix` werden standardisierte Typen deklariert:
 - `ssh_keys`: Liste der bereitzustellenden SSH-Schlüssel.
 - `ssh_config` & `ssh_known_hosts`: SSH-Client-Einstellungen.
 - `gpg_pub_key`: Öffentlicher GPG-Schlüssel.
-- `use_yubikey`: Aktiviert YubiKey U2F-Authentifizierung.
 
 ---
 
@@ -180,7 +179,7 @@ Die Profile in `hosts/profiles/` fassen Module thematisch zusammen:
 ├────────────────────────┼────────────────────────────────────────┤
 │ Secrets-Management     │ sops-nix + age + SSH-Host-Keys         │
 ├────────────────────────┼────────────────────────────────────────┤
-│ Benutzer-Auth (PAM)    │ YubiKey (pam_u2f) + Fingerprint (fprintd)│
+│ Authentifizierung      │ GNOME Keyring & SSH Key Auth           │
 ├────────────────────────┼────────────────────────────────────────┤
 │ Versionskontrolle      │ Git Commit Signing via SSH Keys        │
 └────────────────────────┴────────────────────────────────────────┘
@@ -223,12 +222,12 @@ In `modules/system/boot.nix`:
 
 ---
 
-### 3.4 Authentifizierung (YubiKey, PAM & Fingerprint)
+### 3.4 Authentifizierung & Keyring
 
 In `modules/services/core/security.nix`:
-- **PAM U2F**: Aktiv für `login`, `sddm`, `sudo`, `polkit-1` und SSH-Sudo.
-- **Fingerabdruck (`fprintd`)**: Integriert mit `libfprint-2-tod1-goodix` Treiber für biometrische Entsperrung.
-- **Home-Assistant Power User (`ha_power`)**: Dedizierter Systembenutzer mit eingeschränkten Sudo-Rechten für Display- und Energiesteuerung (`cosmic-randr`, `wlr-randr`, `wlopm`) ohne Passwortabfrage.
+- **GNOME Keyring**: Automatische Entsperrung bei Anmeldung (`gdm-password.enableGnomeKeyring = true`).
+- **Passwortlose Authentifizierung**: Lokale Benutzerauthentifizierung erfolgt über sichere Passwörter aus SOPS (`passwords/<user>`) und SSH-Schlüsselpaare.
+- **Git Commit Signing**: Alle Commits werden deklarativ mit dem persönlichen SSH-Schlüssel signiert.
 
 ---
 

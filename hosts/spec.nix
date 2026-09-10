@@ -46,11 +46,6 @@ let
         default = "";
         description = "Public GPG Key for the user";
       };
-      use_yubikey = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Whether to use a YubiKey for authentication";
-      };
     };
   };
 in

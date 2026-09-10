@@ -44,15 +44,6 @@
     "systemd.journald.forward_to_console=1"
   ];
 
-  # allow sudo over ssh with yubikey
-  security.pam = {
-    rssh.enable = true;
-    services.sudo = {
-      rssh = true;
-      u2fAuth = true;
-    };
-  };
-
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
       wget

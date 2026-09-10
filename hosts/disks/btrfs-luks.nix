@@ -96,8 +96,4 @@
       };
     };
   };
-
-  environment.systemPackages = [
-    pkgs.yubikey-manager # For luks fido2 enrollment before full install
-  ];
 }

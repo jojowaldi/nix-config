@@ -53,8 +53,6 @@
       man-pages
       man-pages-posix
       sops
-      pam_u2f
-      libfido2
       haskellPackages.hashable
       cachix
       fish
