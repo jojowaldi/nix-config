@@ -1,21 +1,24 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  pkgs,
+  self,
+  ...
+}:
 
 {
-  imports = [
+  imports = with self.modules; [
     ./hardware-config.nix
-
     ../../spec.nix
 
     # Base
-    ../../../modules/inputs.nix
-    ../../../modules/sops.nix
-    ../../../modules/users/normal.nix
-    # Profiles
+    inputs
+    system.sops
+    users.normal
 
-    ../../../modules/profiles/apps/base.nix
-    ../../../modules/apps/code_editor.nix
-    ../../../modules/apps/terminal.nix
-    ../../../modules/system/services/font.nix
+    # Apps / Tools
+    apps.coding.code_editor
+    apps.tools.terminal
+    system.font
   ];
 
   environment.systemPackages = with pkgs; [
@@ -27,7 +30,10 @@
   hostSpec = {
     hostname = "work";
     users = [
-      inputs.nix-secrets.users.work
+      (inputs.nix-secrets.users.work or inputs.nix-secrets.users.jojowaldi or {
+        username = "work";
+        secrets_user = "jojowaldi";
+      })
     ];
     configPath = "/etc/nix-darwin/nix-config";
   };

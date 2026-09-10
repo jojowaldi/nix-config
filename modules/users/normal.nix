@@ -22,6 +22,8 @@ in
     inputs.home-manager.${platformModules}.home-manager
   ];
 
+  programs.fish.enable = lib.mkDefault true;
+
   users = {
     users = lib.foldl (
       acc: spec:

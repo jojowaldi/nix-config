@@ -52,6 +52,8 @@ in
     export PS1="\\[\\033[01;32m\\]\\u@\\h-$(cat /etc/isoBuildTime)\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\$ "
   '';
 
+  programs.fish.enable = true;
+
   # The default compression-level is (6) and takes too long on some machines (>30m). 3 takes <2m
   isoImage.squashfsCompression = "zstd -Xcompression-level 3";
 
