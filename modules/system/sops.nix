@@ -55,17 +55,6 @@ in
         }
       )
       {
-        "store_key/private" = {
-          sopsFile = "${sopsFolder}/shared.yaml";
-          owner = "root";
-          group = "wheel";
-        };
-
-        "store_key/public" = {
-          sopsFile = "${sopsFolder}/shared.yaml";
-          owner = "root";
-          group = "wheel";
-        };
       }
       config.hostSpec.users;
 
