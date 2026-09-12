@@ -1,7 +1,7 @@
 { pkgs, pkgsUnstableNoCuda, ... }:
 
 let
-  browser = [ "brave-browser.desktop" ];
+  browser = [ "google-chrome.desktop" ];
   editor = [ "nvim.desktop" ];
   media = [ "vlc.desktop" ];
   terminal = [ "alacritty.desktop" ];
