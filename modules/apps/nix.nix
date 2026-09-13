@@ -92,6 +92,7 @@ in
     overlays = [
       inputs.rust-overlay.overlays.default
       inputs.custom-nixpkgs.overlays.default
+      (import ../../pkgs)
     ];
   };
 }

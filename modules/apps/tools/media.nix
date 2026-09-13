@@ -7,5 +7,6 @@
     karere
     teamspeak6-client
     spotify
+    deej
   ];
 }
