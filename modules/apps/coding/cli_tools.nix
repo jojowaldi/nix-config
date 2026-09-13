@@ -42,6 +42,7 @@ in
       wasm-bindgen-cli
       clang.cc
       slintcn
+      antigravity-cli
     ]
     ++ (
       if isLinux then
