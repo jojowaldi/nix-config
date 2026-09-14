@@ -58,41 +58,72 @@ buildGoModule rec {
 	"os/exec"
 	"strings"
 	"sync"
+	"time"
 
 	"go.uber.org/zap"' \
       --replace-fail 'func (s *paSession) SetVolume(v float32) error {' \
 'var (
-	spotifyVolChan  = make(chan float32, 1)
-	spotifySyncOnce sync.Once
+	spotifyTargetVol float32 = -1.0
+	spotifyVolMu     sync.Mutex
+	spotifySyncOnce  sync.Once
 )
 
 func initSpotifySync() {
 	spotifySyncOnce.Do(func() {
+		dbusBin := "${dbus}/bin/dbus-send"
+		if _, err := os.Stat(dbusBin); err != nil {
+			dbusBin = "dbus-send"
+		}
+
+		sendVolume := func(v float32) {
+			cmd := exec.Command(dbusBin,
+				"--type=method_call",
+				"--dest=org.mpris.MediaPlayer2.spotify",
+				"/org/mpris/MediaPlayer2",
+				"org.freedesktop.DBus.Properties.Set",
+				"string:org.mpris.MediaPlayer2.Player",
+				"string:Volume",
+				fmt.Sprintf("variant:double:%f", v),
+			)
+			_ = cmd.Run()
+		}
+
 		go func() {
-			dbusBin := "${dbus}/bin/dbus-send"
-			if _, err := os.Stat(dbusBin); err != nil {
-				dbusBin = "dbus-send"
-			}
-			for v := range spotifyVolChan {
-				for {
-					select {
-					case newer := <-spotifyVolChan:
-						v = newer
-					default:
-						goto drained
-					}
+			ticker := time.NewTicker(500 * time.Millisecond)
+			defer ticker.Stop()
+
+			for range ticker.C {
+				spotifyVolMu.Lock()
+				target := spotifyTargetVol
+				spotifyVolMu.Unlock()
+
+				if target < 0 {
+					continue
 				}
-			drained:
-				cmd := exec.Command(dbusBin,
-					"--type=method_call",
+
+				out, err := exec.Command(dbusBin,
+					"--print-reply",
 					"--dest=org.mpris.MediaPlayer2.spotify",
 					"/org/mpris/MediaPlayer2",
-					"org.freedesktop.DBus.Properties.Set",
+					"org.freedesktop.DBus.Properties.Get",
 					"string:org.mpris.MediaPlayer2.Player",
 					"string:Volume",
-					fmt.Sprintf("variant:double:%f", v),
-				)
-				_ = cmd.Run()
+				).Output()
+				if err != nil {
+					continue
+				}
+
+				outStr := string(out)
+				idx := strings.Index(outStr, "double")
+				if idx != -1 {
+					var currentVol float64
+					if _, err := fmt.Sscanf(outStr[idx+6:], "%f", &currentVol); err == nil {
+						diff := float32(currentVol) - target
+						if diff < -0.03 || diff > 0.03 {
+							sendVolume(target)
+						}
+					}
+				}
 			}
 		}()
 	})
@@ -100,21 +131,42 @@ func initSpotifySync() {
 
 func syncSpotifyVolume(v float32) {
 	initSpotifySync()
-	select {
-	case spotifyVolChan <- v:
-	default:
-		select {
-		case <-spotifyVolChan:
-		default:
-		}
-		spotifyVolChan <- v
+	spotifyVolMu.Lock()
+	same := (spotifyTargetVol == v)
+	spotifyTargetVol = v
+	spotifyVolMu.Unlock()
+
+	if same {
+		return
 	}
+
+	dbusBin := "${dbus}/bin/dbus-send"
+	if _, err := os.Stat(dbusBin); err != nil {
+		dbusBin = "dbus-send"
+	}
+	cmd := exec.Command(dbusBin,
+		"--type=method_call",
+		"--dest=org.mpris.MediaPlayer2.spotify",
+		"/org/mpris/MediaPlayer2",
+		"org.freedesktop.DBus.Properties.Set",
+		"string:org.mpris.MediaPlayer2.Player",
+		"string:Volume",
+		fmt.Sprintf("variant:double:%f", v),
+	)
+	_ = cmd.Run()
 }
 
 func (s *paSession) SetVolume(v float32) error {' \
       --replace-fail 'if err := s.client.Request(&request, nil); err != nil {' \
 'if strings.Contains(strings.ToLower(s.processName), "spotify") {
 		syncSpotifyVolume(v)
+		volumes := createChannelVolumes(s.sinkInputChannels, 1.0)
+		request := proto.SetSinkInputVolume{
+			SinkInputIndex: s.sinkInputIndex,
+			ChannelVolumes: volumes,
+		}
+		_ = s.client.Request(&request, nil)
+		return nil
 	}
 
 	if err := s.client.Request(&request, nil); err != nil {'
