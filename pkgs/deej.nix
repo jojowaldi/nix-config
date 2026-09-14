@@ -6,6 +6,7 @@
   gtk3,
   libappindicator,
   webkitgtk_4_1,
+  dbus,
   deejSrc ? null,
   gitCommit ? "9c0307b",
   versionTag ? "0.9.10-unstable",
@@ -36,20 +37,87 @@ buildGoModule rec {
     gtk3
     libappindicator
     webkitgtk_4_1
+    dbus
   ];
 
   postPatch = ''
-        substituteInPlace pkg/deej/session_finder_linux.go \
-          --replace-fail '"github.com/jfreymuth/pulse/proto"' '"github.com/jfreymuth/pulse/proto"
-    	"strings"' \
-          --replace-fail 'newSession := newPASession(sf.sessionLogger, sf.client, info.SinkInputIndex, info.Channels, name.String())' \
-                         'procName := name.String()
-    		newSession := newPASession(sf.sessionLogger, sf.client, info.SinkInputIndex, info.Channels, procName)
-    		cleanName := strings.TrimSuffix(strings.TrimPrefix(procName, "."), "-wrapped")
-    		if cleanName != procName {
-    			cleanSession := newPASession(sf.sessionLogger, sf.client, info.SinkInputIndex, info.Channels, cleanName)
-    			*sessions = append(*sessions, cleanSession)
-    		}'
+    substituteInPlace pkg/deej/session_finder_linux.go \
+      --replace-fail '"github.com/jfreymuth/pulse/proto"' '"github.com/jfreymuth/pulse/proto"
+	"strings"' \
+      --replace-fail 'newSession := newPASession(sf.sessionLogger, sf.client, info.SinkInputIndex, info.Channels, name.String())' \
+                     'procName := name.String()
+		newSession := newPASession(sf.sessionLogger, sf.client, info.SinkInputIndex, info.Channels, procName)
+		cleanName := strings.TrimSuffix(strings.TrimPrefix(procName, "."), "-wrapped")
+		if cleanName != procName {
+			cleanSession := newPASession(sf.sessionLogger, sf.client, info.SinkInputIndex, info.Channels, cleanName)
+			*sessions = append(*sessions, cleanSession)
+		}'
+
+    substituteInPlace pkg/deej/session_linux.go \
+      --replace-fail '"go.uber.org/zap"' '"os"
+	"os/exec"
+	"strings"
+	"sync"
+
+	"go.uber.org/zap"' \
+      --replace-fail 'func (s *paSession) SetVolume(v float32) error {' \
+'var (
+	spotifyVolChan  = make(chan float32, 1)
+	spotifySyncOnce sync.Once
+)
+
+func initSpotifySync() {
+	spotifySyncOnce.Do(func() {
+		go func() {
+			dbusBin := "${dbus}/bin/dbus-send"
+			if _, err := os.Stat(dbusBin); err != nil {
+				dbusBin = "dbus-send"
+			}
+			for v := range spotifyVolChan {
+				for {
+					select {
+					case newer := <-spotifyVolChan:
+						v = newer
+					default:
+						goto drained
+					}
+				}
+			drained:
+				cmd := exec.Command(dbusBin,
+					"--type=method_call",
+					"--dest=org.mpris.MediaPlayer2.spotify",
+					"/org/mpris/MediaPlayer2",
+					"org.freedesktop.DBus.Properties.Set",
+					"string:org.mpris.MediaPlayer2.Player",
+					"string:Volume",
+					fmt.Sprintf("variant:double:%f", v),
+				)
+				_ = cmd.Run()
+			}
+		}()
+	})
+}
+
+func syncSpotifyVolume(v float32) {
+	initSpotifySync()
+	select {
+	case spotifyVolChan <- v:
+	default:
+		select {
+		case <-spotifyVolChan:
+		default:
+		}
+		spotifyVolChan <- v
+	}
+}
+
+func (s *paSession) SetVolume(v float32) error {' \
+      --replace-fail 'if err := s.client.Request(&request, nil); err != nil {' \
+'if strings.Contains(strings.ToLower(s.processName), "spotify") {
+		syncSpotifyVolume(v)
+	}
+
+	if err := s.client.Request(&request, nil); err != nil {'
   '';
 
   ldflags = [
