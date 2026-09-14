@@ -9,6 +9,7 @@
     services.core.keyring
     services.core.security
     services.core.time
+    services.core.udev
 
     services.network.network
     services.network.sshd
