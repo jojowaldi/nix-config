@@ -20,6 +20,7 @@
     apps.coding.graphics_coding
     apps.creative."3d"
     apps.creative."3d_print"
+    apps.creative.winboat
     apps.gaming.games
     apps.tools.profiling
 

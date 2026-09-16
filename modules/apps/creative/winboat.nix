@@ -2,8 +2,6 @@
 
 {
   environment.systemPackages = with pkgs; [
-    cura-appimage
-    freecad
-    orca-slicer
+    winboat
   ];
 }
