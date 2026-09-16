@@ -3,7 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
     noctalia
-    cosmic-files
+    nautilus
     kdePackages.qttools
     socat
   ];
@@ -28,4 +28,9 @@
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
   services.gnome.evolution-data-server.enable = true;
+
+  programs.nautilus-open-any-terminal = {
+    enable = true;
+    terminal = "alacritty";
+  };
 }

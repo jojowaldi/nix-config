@@ -5,7 +5,7 @@
     enable = true;
     settings = {
       program_options = {
-        file_manager = "${pkgs.cosmic-files}/bin/cosmic-files";
+        file_manager = "${pkgs.nautilus}/bin/nautilus";
       };
     };
   };
