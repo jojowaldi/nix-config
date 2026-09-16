@@ -24,8 +24,7 @@ let
 in
 {
   imports = [
-    ./noctalia-legacy.nix
-    #./noctalia.nix
+    ./noctalia.nix
     ./vicinae.nix
     ./wallpaper.nix
     ./positron.nix

@@ -19,8 +19,7 @@
     services.media.printing
 
     services.gui.display-manager
-    services.gui.noctalia-legacy
-    #services.gui.noctalia
+    services.gui.noctalia
     services.gui.sddm
     #services.gui.noctalia-greeter
 

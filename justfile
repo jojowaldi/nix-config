@@ -133,9 +133,6 @@ sops-add-creation-rules USER HOST:
     just sops-add-host-creation-rules {{USER}} {{HOST}} && \
     just sops-add-shared-creation-rules {{USER}} {{HOST}}
 
-noctalia-legacy:
-  noctalia-shell ipc call state all | jq .settings > {{pwd}}/assets/shells/noctalia-settings.json
-
 noctalia:
   noctalia config export > {{pwd}}/assets/shells/noctalia-settings.toml
 

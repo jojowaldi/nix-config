@@ -12,7 +12,6 @@ order = [ "default" ]
         "tray",
         "group:g1",
         "widget",
-        "nix-monitor",
         "bar",
         "status",
         "bar_2",
@@ -227,13 +226,7 @@ panel_placement = "attached"
 hide_mullvad = false
 
 [plugins]
-enabled = [
-    "pozzoo/hassio",
-    "avivbintangaringga/nix-monitor",
-    "profidev/hypr-screen-mirror",
-    "icefish/phone-connect",
-    "rylos/tailnet"
-]
+enabled = [ "pozzoo/hassio", "profidev/hypr-screen-mirror", "icefish/phone-connect", "rylos/tailnet" ]
 
 [shell]
 avatar_path = "/nix/store/d1ys2ri119q9pw4nl4gc8iv9ayx2y209-profidev.jpeg"
@@ -429,7 +422,7 @@ type = "davemhammer/tailscale:status"
 [widget.sysmon]
 capsule = true
 show_value = false
-stat = "disk_pct"
+stat = "disk_used"
 
 [widget.taskbar]
 capsule_radius = "auto"
@@ -445,7 +438,7 @@ show_value = false
 [widget.tray]
 capsule = true
 capsule_padding = 4
-hidden = [ "nm-applet", "udiskie", "wayscriber" ]
+hidden = [ "nm-applet", "udiskie", "wayscriber", "vicinae" ]
 scale = 1.05
 
 [widget.volume]
