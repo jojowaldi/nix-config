@@ -2,7 +2,7 @@
 
 Eine modulare, deklarative Multi-Plattform-Systemkonfiguration für **NixOS (Linux)** und **nix-darwin (macOS)**, basierend auf Nix Flakes, Home-Manager, Disko, sops-nix, Lanzaboote Secure Boot und Hyprland.
 
-*Inspiriert von [EmergentMind/nix-config](https://github.com/EmergentMind/nix-config).*
+*Inspiriert von [Profiidev/nix](https://github.com/Profiidev/nix).*
 
 ---
 
