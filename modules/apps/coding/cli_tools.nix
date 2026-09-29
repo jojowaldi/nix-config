@@ -20,7 +20,6 @@ in
       cargo-watch
       dioxus-cli
       postgresql
-      bun2nix
       git-cliff
       act
       maven

@@ -6,7 +6,6 @@
     [
       #jetbrains-toolbox
       zed-editor
-      antigravity
     ]
     ++ (
       if isLinux then

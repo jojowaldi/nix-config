@@ -8,7 +8,7 @@
   environment.systemPackages = with pkgs; [
     heroic
     #lutris
-    r2modman
+    #r2modman
     wine
     winetricks
     gamemode
