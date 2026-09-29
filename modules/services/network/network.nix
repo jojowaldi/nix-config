@@ -5,6 +5,8 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 10823 ];
+  networking.firewall.allowedUDPPorts = [ 10823 ];   
   #networking.firewall.package = pkgs.iptables-legacy;
 
   networking.networkmanager = {
