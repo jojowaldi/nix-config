@@ -76,6 +76,6 @@ in
   };
 
   home.sessionVariables = {
-    DEFAULT_BROWSER = "${pkgs.brave}/bin/brave";
+    DEFAULT_BROWSER = "${pkgs.google-chrome}/bin/google-chrome";
   };
 }

@@ -276,7 +276,7 @@ Alle Tastenkombinationen sind in `assets/hyprland/keybinds.lua` und `assets/hypr
 | `Super + Space` oder `Alt + Space` | `vicinae toggle` (App-Launcher öffnen/schließen) |
 | `Super + V` | `vicinae deeplink vicinae://launch/clipboard/history` (Zwischenablage) |
 | `Super + T` | `alacritty` (Terminal starten) |
-| `Super + B` | `brave` (Browser starten) |
+| `Super + B` | `google-chrome` (Browser starten) |
 | `Super + Q` | Aktives Fenster schließen (`window.close`) |
 | `Alt + F` | Floating-Modus für aktives Fenster umschalten |
 | `Super + F` | Vollbildmodus umschalten |
