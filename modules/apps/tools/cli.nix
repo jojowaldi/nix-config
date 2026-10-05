@@ -10,7 +10,7 @@
   environment.systemPackages =
     with pkgs;
     [
-      trunk
+      #trunk
       nano
       home-manager
       ripgrep
