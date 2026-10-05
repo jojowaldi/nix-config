@@ -32,8 +32,12 @@
     ];
   };
 
+  services.asusd = {
+    enable = true;
+  };
+
   environment.systemPackages = with pkgs; [
-    mcontrolcenter
+    asusctl
   ];
 
   boot.lanzaboote.measuredBoot.enable = true;

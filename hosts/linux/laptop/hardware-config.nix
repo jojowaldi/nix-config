@@ -21,23 +21,21 @@
     "ahci"
     "sd_mod"
     "sr_mod"
+    "usb_storage"
   ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelModules = [
-    "kvm-intel"
-    "msi-ec"
+    "kvm-amd"
     "ec-sys"
   ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    msi-ec
-  ];
-  boot.resumeDevice = "/dev/disk/by-uuid/1e6ed03a-1bc4-4199-993f-8c23e5d9a0dd";
+  boot.resumeDevice = "/dev/disk/by-id/nvme-INTENSO_SSD_1642408002002208";
   boot.kernelParams = [
     "mem_sleep_default=deep"
     "acpi_sleep=nonvs"
-    "resume_offset=533760"
+    "resume_offset=23911646"
+    "resume=/dev/disk/by-id/nvme-INTENSO_SSD_1642408002002208"
   ];
-  hardware.cpu.intel.updateMicrocode = true;
+  hardware.cpu.amd.updateMicrocode = true;
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
