@@ -1,4 +1,9 @@
-{ inputs, self, ... }:
+{
+  inputs,
+  pkgs,
+  self,
+  ...
+}:
 
 {
   imports = with self.modules; [
@@ -40,4 +45,8 @@
       }
     ];
   };
+
+  environment.systemPackages = with pkgs; [
+    deej
+  ];
 }
