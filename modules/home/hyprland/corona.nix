@@ -20,7 +20,7 @@
   gtk = {
     enable = true;
     theme = {
-      name = lib.mkForce "adw-gtk3";
+      name = lib.mkForce "adw-gtk3-dark";
       package = lib.mkForce pkgs.adw-gtk3;
     };
     gtk4.theme = null;
@@ -33,12 +33,11 @@
 
   home.sessionVariables = {
     QT_QPA_PLATFORMTHEME = lib.mkForce "qt6ct";
-    GTK_THEME = "adw-gtk3";
   };
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
-      gtk-theme = "adw-gtk3";
+      gtk-theme = "adw-gtk3-dark";
       color-scheme = "prefer-dark";
     };
   };
