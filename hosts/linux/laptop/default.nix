@@ -15,6 +15,7 @@
     services.media.miracast
     services.network.cloudflare
     system.suspend-then-hibernate
+    apps.creative."3d"
 
     ../../profiles/general.nix
     ../../profiles/system.nix

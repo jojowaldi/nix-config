@@ -6,4 +6,6 @@
     blockbench
     webots
   ];
+
+  environment.pathsToLink = [ "/share/webots" ];
 }
