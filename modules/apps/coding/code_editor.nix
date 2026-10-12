@@ -4,7 +4,7 @@
   environment.systemPackages =
     with pkgs;
     [
-      jetbrains-toolbox
+      #jetbrains-toolbox
       zed-editor
       #rstudio
     ]
