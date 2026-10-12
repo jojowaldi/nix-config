@@ -136,5 +136,8 @@ sops-add-creation-rules USER HOST:
 noctalia:
   noctalia config export > {{pwd}}/assets/shells/noctalia-settings.toml
 
+corona:
+  corona config show > {{pwd}}/assets/shells/corona-settings.toml
+
 repl:
   nix repl --expr "builtins.getFlake \"$PWD\""

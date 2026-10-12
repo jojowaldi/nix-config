@@ -49,4 +49,6 @@
   hostSpec.hyprlandMonitorConfig = builtins.readFile ./monitors.lua;
 
   hostSpec.hyprlandHiDpiFix = true;
+
+  services.corona-greeter.settings.monitor = "eDP-1";
 }

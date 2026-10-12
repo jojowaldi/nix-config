@@ -14,6 +14,7 @@
     services.gui.igpu
     services.media.miracast
     services.network.cloudflare
+    system.suspend-then-hibernate
 
     ../../profiles/general.nix
     ../../profiles/system.nix

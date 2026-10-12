@@ -40,7 +40,6 @@ in
       llvmPackages.lld
       wasm-bindgen-cli
       clang.cc
-      slintcn
       antigravity-cli
     ]
     ++ (

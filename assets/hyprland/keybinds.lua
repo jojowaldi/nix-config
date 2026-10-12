@@ -21,14 +21,14 @@ hl.bind("ALT + up", hl.dsp.focus({ direction = "up" }))
 hl.bind("ALT + right", hl.dsp.focus({ direction = "right" }))
 
 -- Move Window
-hl.bind("SUPER + H", hl.dsp.window.move({ direction = "l" }))
-hl.bind("SUPER + J", hl.dsp.window.move({ direction = "d" }))
-hl.bind("SUPER + K", hl.dsp.window.move({ direction = "u" }))
-hl.bind("SUPER + L", hl.dsp.window.move({ direction = "r" }))
-hl.bind("SUPER + left", hl.dsp.window.move({ direction = "l" }))
-hl.bind("SUPER + down", hl.dsp.window.move({ direction = "d" }))
-hl.bind("SUPER + up", hl.dsp.window.move({ direction = "u" }))
-hl.bind("SUPER + right", hl.dsp.window.move({ direction = "r" }))
+hl.bind("SUPER + SHIFT + H", hl.dsp.window.move({ direction = "l" }))
+hl.bind("SUPER + SHIFT + J", hl.dsp.window.move({ direction = "d" }))
+hl.bind("SUPER + SHIFT + K", hl.dsp.window.move({ direction = "u" }))
+hl.bind("SUPER + SHIFT + L", hl.dsp.window.move({ direction = "r" }))
+hl.bind("SUPER + SHIFT + left", hl.dsp.window.move({ direction = "l" }))
+hl.bind("SUPER + SHIFT + down", hl.dsp.window.move({ direction = "d" }))
+hl.bind("SUPER + SHIFT + up", hl.dsp.window.move({ direction = "u" }))
+hl.bind("SUPER + SHIFT + right", hl.dsp.window.move({ direction = "r" }))
 
 -- Switch Workspace
 hl.bind("SUPER + 1", hl.dsp.focus({ workspace = 1 }))
@@ -63,9 +63,6 @@ hl.bind("SUPER + E", hl.dsp.workspace.toggle_special("magic-e"))
 hl.bind("SUPER + SHIFT + E", hl.dsp.window.move({ workspace = "special:magic-e" }))
 hl.bind("SUPER + D", hl.dsp.workspace.toggle_special("magic-d"))
 hl.bind("SUPER + SHIFT + D", hl.dsp.window.move({ workspace = "special:magic-d" }))
-
--- Wayscriber
-hl.bind("SUPER + W", hl.dsp.exec_cmd("pkill -SIGUSR1 wayscriber"))
 
 -- Mouse Bindings
 hl.bind("SUPER + mouse:272", hl.dsp.window.drag())

@@ -1,12 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   services.logind.settings.Login = {
-    HandleLidSwitch = "hibernate";
-    HandleLidSwitchDocked = "hibernate";
-    HandleLidSwitchExternalPower = "hibernate";
+    HandleLidSwitch = lib.mkDefault "suspend";
+    HandleLidSwitchDocked = lib.mkDefault "ignore";
+    HandleLidSwitchExternalPower = lib.mkDefault "suspend";
   };
 
   boot = {

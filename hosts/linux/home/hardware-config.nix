@@ -56,8 +56,13 @@
 
   hostSpec.hyprlandMonitorConfig = builtins.readFile ./monitors.lua;
 
-  home-manager.users.sddm = {
-    home.file.".config/kwinoutputconfig.json".source = ./kwinoutputconfig.json;
+  services.corona-greeter = {
+    settings.monitor = "DP-3";
+    outputs = {
+      HDMI-A-1.position = "0,0";
+      DP-3.position = "1920,0";
+      DP-2.position = "4480,0";
+    };
   };
 
   services.tailscale = {

@@ -1,5 +1,18 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 
+let
+  exclude = [
+    ".credentials.json"
+    ".claude.json"
+  ];
+  profiles = [
+    "uni"
+  ];
+in
 {
   programs.fish = {
     enable = true;
@@ -87,6 +100,14 @@
           end < "$envfile"
         '';
       };
+
+      claude-uni = {
+        wraps = "claude";
+        body = ''
+          set -lx CLAUDE_CONFIG_DIR $HOME/.claude-uni
+          command claude $argv
+        '';
+      };
     };
 
     plugins = [
@@ -121,4 +142,31 @@
   };
 
   programs.man.generateCaches = lib.mkForce false;
+
+  home.activation.linkClaudeProfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    src="$HOME/.claude"
+
+    if [ -d "$src" ]; then
+      for profile in ${lib.escapeShellArgs profiles}; do
+        dir="$HOME/.claude-$profile"
+        run mkdir -p "$dir"
+
+        # drop dangling links left over from deleted files
+        run find "$dir" -maxdepth 1 -xtype l -delete
+
+        for path in "$src"/* "$src"/.[!.]*; do
+          [ -e "$path" ] || continue
+          f=$(basename "$path")
+
+          case "$f" in
+            ${lib.concatMapStringsSep "|" lib.escapeShellArg exclude}) continue ;;
+          esac
+
+          if [ ! -e "$dir/$f" ] && [ ! -L "$dir/$f" ]; then
+            run ln -s "$path" "$dir/$f"
+          fi
+        done
+      done
+    fi
+  '';
 }

@@ -82,13 +82,6 @@
     };
   };
 
-  users.users.sddm = {
-    isSystemUser = true;
-    group = "sddm";
-  };
-  users.groups.sddm = { };
-
   system.stateVersion = "26.05";
-  home-manager.users.sddm.home.stateVersion = "26.05";
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

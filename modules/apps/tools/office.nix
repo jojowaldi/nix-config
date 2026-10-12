@@ -5,7 +5,5 @@
     #texliveFull
     #tex-fmt
     beamerpresenter
-    wayscriber
-    wayscriber-configurator
   ];
 }

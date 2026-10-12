@@ -10,21 +10,21 @@
     };
   };
 
-  systemd.user.services.deej = {
-    Unit = {
-      Description = "Deej Hardware Volume Mixer";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
-    };
+ # systemd.user.services.deej = {
+ #   Unit = {
+ #     Description = "Deej Hardware Volume Mixer";
+ #     PartOf = [ "graphical-session.target" ];
+ #     After = [ "graphical-session.target" ];
+ #   };
 
-    Service = {
-      ExecStart = "${pkgs.deej}/bin/deej";
-      Restart = "always";
-      RestartSec = 5;
-    };
+ #   Service = {
+ #     ExecStart = "${pkgs.deej}/bin/deej";
+ #     Restart = "always";
+ #     RestartSec = 5;
+ #   };
 
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
-  };
+ #   Install = {
+ #     WantedBy = [ "graphical-session.target" ];
+ #   };
+ # };
 }

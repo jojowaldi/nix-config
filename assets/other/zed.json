@@ -346,8 +346,7 @@
     "proto": true,
     "oxc": true,
     "luau": true,
-    "pest": true,
-    "slint": true
+    "pest": true
   },
   "terminal": {
     "toolbar": {
