@@ -61,7 +61,7 @@ in
                 ])
               ];
               hashedPasswordFile = lib.mkIf (
-                !hostSpec.isMinimal
+                !hostSpec.isMinimal && !hostSpec.isWsl
               ) config.sops.secrets."passwords/${spec.username}".path;
             }
           else

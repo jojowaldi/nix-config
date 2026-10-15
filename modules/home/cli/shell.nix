@@ -1,4 +1,9 @@
-{ pkgs, isLinux, ... }:
+{
+  pkgs,
+  isLinux,
+  hostSpec,
+  ...
+}:
 
 {
   programs.bash = {
@@ -22,7 +27,7 @@
     LIBCLANG_PATH = "/run/current-system/sw/share/nix-ld/lib";
   }
   // (
-    if isLinux then
+    if isLinux && !hostSpec.isWsl then
       {
         CHROME_EXECUTABLE = "${pkgs.google-chrome}/bin/google-chrome-stable";
       }

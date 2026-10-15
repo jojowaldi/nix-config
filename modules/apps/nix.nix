@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   inputs,
   isLinux,
@@ -9,9 +10,11 @@
 let
   platform = if isLinux then "nixos" else "darwin";
   platformModules = "${platform}Modules";
-  collectFlakeInputs =
-    input:
-    [ input ] ++ builtins.concatMap collectFlakeInputs (builtins.attrValues (input.inputs or { }));
+  # WSL (work machine) has no access to the private nix-secrets repo
+  skipInputs = lib.optional config.hostSpec.isWsl "nix-secrets";
+  collectInputs =
+    inputs: builtins.concatMap collectFlakeInputs (builtins.attrValues (removeAttrs inputs skipInputs));
+  collectFlakeInputs = input: [ input ] ++ collectInputs (input.inputs or { });
 in
 {
   imports = [
@@ -49,7 +52,7 @@ in
   ];
 
   system.extraDependencies =
-    (builtins.concatMap collectFlakeInputs (builtins.attrValues inputs))
+    (collectInputs inputs)
     ++ (builtins.attrValues inputs.custom-nixpkgs.sources.${pkgs.stdenv.hostPlatform.system});
 
   nix.settings = {

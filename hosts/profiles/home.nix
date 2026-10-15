@@ -1,29 +1,40 @@
-{ self, ... }:
+{
+  self,
+  lib,
+  hostSpec,
+  ...
+}:
 
 {
-  imports = with self.modules; [
-    home.sops
+  imports =
+    with self.modules;
+    [
+      home.tools.virtualization
 
-    home.tools.terminal
-    home.tools.virtualization
+      home.coding.git
+      home.coding.nvim
 
-    home.services.media
+      home.cli.fastfetch
+      home.cli.fish
+      home.cli.gpg
+      home.cli.shell
+      home.cli.ssh
+      home.cli.starship
+      home.cli.zoxide
+    ]
+    # WSL: no GUI and no sops secrets
+    ++ lib.optionals (!hostSpec.isWsl) [
+      home.sops
 
-    home.hyprland.default
+      home.tools.terminal
 
-    home.gui.browser
-    home.gui.theme
+      home.services.media
 
-    home.coding.editor
-    home.coding.git
-    home.coding.nvim
+      home.hyprland.default
 
-    home.cli.fastfetch
-    home.cli.fish
-    home.cli.gpg
-    home.cli.shell
-    home.cli.ssh
-    home.cli.starship
-    home.cli.zoxide
-  ];
+      home.gui.browser
+      home.gui.theme
+
+      home.coding.editor
+    ];
 }

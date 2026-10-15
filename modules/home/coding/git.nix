@@ -47,7 +47,7 @@
         rebase = true;
       };
 
-      commit.gpgsign = true;
+      commit.gpgsign = config.userSpec.git_sign_key != "";
       gpg.format = "ssh";
       user.signingkey = "~/.ssh/id_${config.userSpec.git_sign_key}.pub";
 

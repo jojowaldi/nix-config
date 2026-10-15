@@ -60,6 +60,11 @@ in
       default = false;
       description = "Used to indicate a minimal host";
     };
+    isWsl = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "WSL host: no GUI, no sops secrets";
+    };
     users = lib.mkOption {
       type = lib.types.listOf userSpecType;
       default = [ ];
