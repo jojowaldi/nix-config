@@ -14,6 +14,7 @@
     services.network.network
     services.network.sshd
     services.network.tailscale
+    services.network.sunshine
 
     services.media.media
     services.media.printing
