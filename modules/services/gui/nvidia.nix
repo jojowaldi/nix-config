@@ -20,6 +20,13 @@
     enable32Bit = true;
   };
 
+  # VA-API video decode via nvidia-vaapi-driver (browsers)
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "nvidia";
+    NVD_BACKEND = "direct";
+    MOZ_DISABLE_RDD_SANDBOX = "1"; # RDD sandbox blocks nvidia-vaapi-driver in Firefox
+  };
+
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {

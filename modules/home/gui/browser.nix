@@ -1,6 +1,11 @@
 { pkgs, pkgsUnstableNoCuda, ... }:
 
 let
+  # VA-API decode on NVIDIA (nvidia-vaapi-driver); WaylandWindowDecorations repeated so the wrapper's --enable-features is not lost
+  google-chrome = pkgs.google-chrome.override {
+    commandLineArgs = "--enable-features=WaylandWindowDecorations,VaapiVideoDecoder,VaapiIgnoreDriverChecks,VaapiOnNvidiaGPUs,AcceleratedVideoDecodeLinuxGL";
+  };
+
   browser = [ "google-chrome.desktop" ];
   editor = [ "nvim.desktop" ];
   media = [ "vlc.desktop" ];
@@ -76,6 +81,6 @@ in
   };
 
   home.sessionVariables = {
-    DEFAULT_BROWSER = "${pkgs.google-chrome}/bin/google-chrome";
+    DEFAULT_BROWSER = "${google-chrome}/bin/google-chrome";
   };
 }
