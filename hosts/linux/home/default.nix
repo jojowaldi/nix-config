@@ -15,6 +15,7 @@
     services.gui.nvidia
     services.gui.flatpak
     services.core.cooling
+    services.core.ups
     #services.network.nix-serve
     services.media.gpu-screen-recorder
     services.media.jellyfin
