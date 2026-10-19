@@ -85,6 +85,10 @@ in
       if isLinux then
         {
           cudaSupport = true;
+          cudaCapabilities = [
+            "8.9"
+            "8.6"
+          ]; # RTX 40xx + RTX 30xx
         }
       else
         { }
