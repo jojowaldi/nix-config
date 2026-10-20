@@ -79,3 +79,9 @@ hl.gesture({
     direction = "vertical",
     action = "fullscreen",
 })
+
+-- Passthrough: disables all binds so e.g. VNC gets SUPER combos; SUPER + Escape toggles
+hl.bind("SUPER + Escape", hl.dsp.submap("passthru"))
+hl.define_submap("passthru", function()
+    hl.bind("SUPER + Escape", hl.dsp.submap("reset"))
+end)
