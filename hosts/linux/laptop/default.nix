@@ -40,6 +40,7 @@
 
   environment.systemPackages = with pkgs; [
     asusctl
+    tigervnc
   ];
 
   boot.lanzaboote.measuredBoot.enable = true;

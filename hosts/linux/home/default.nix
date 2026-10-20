@@ -17,6 +17,7 @@
     services.core.cooling
     services.core.ups
     #services.network.nix-serve
+    services.network.wayvnc
     services.media.gpu-screen-recorder
     services.media.jellyfin
     services.media.ollama
