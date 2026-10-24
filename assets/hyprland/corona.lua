@@ -54,3 +54,6 @@ hl.config({
 hl.layer_rule({ match = { namespace = "corona_panel" }, no_anim = true })
 hl.layer_rule({ match = { namespace = "corona_notification" }, no_anim = true })
 hl.layer_rule({ match = { namespace = "corona_unlock" }, no_anim = true })
+hl.layer_rule({ match = { namespace = "corona_osk" }, no_anim = true })
+hl.layer_rule({ match = { namespace = "corona_switcher" }, no_anim = true })
+hl.layer_rule({ match = { namespace = "corona_launcher" }, no_anim = true })
