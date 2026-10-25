@@ -24,7 +24,6 @@ let
 in
 {
   imports = [
-    #./noctalia.nix
     ./corona.nix
     ./vicinae.nix
     ./positron.nix
