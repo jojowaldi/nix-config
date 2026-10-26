@@ -32,7 +32,6 @@
     consoleMode = lib.mkDefault "max";
   };
   boot.initrd = {
-    systemd.enable = true;
     systemd.emergencyAccess = true; # Don't need to enter password in emergency mode
     luks.forceLuksSupportInInitrd = true;
   };
