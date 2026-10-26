@@ -14,7 +14,7 @@ in
       cargo-expand
       cargo-generate
       cargo-nextest
-      cargo-llvm-cov
+      #cargo-llvm-cov
       cargo-tauri
       tauri-driver
       cargo-watch
