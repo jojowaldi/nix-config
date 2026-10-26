@@ -62,6 +62,23 @@
         "type": "github"
       }
     },
+    "craft-fonts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791722036,
+        "narHash": "sha256-mNnDzBcOp1X10dzmiW0iBAkb74QjuzMO4slWudxXCTE=",
+        "owner": "storytold",
+        "repo": "craft-fonts",
+        "rev": "3d9ab3a132ed0eff457e424226a435a901da30d3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "craft-fonts",
+        "rev": "3d9ab3a132ed0eff457e424226a435a901da30d3",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1781825982,
@@ -894,6 +911,27 @@
         "type": "github"
       }
     },
+    "lightcraft": {
+      "inputs": {
+        "craft-fonts": "craft-fonts",
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792605952,
+        "narHash": "sha256-4Ia+X9mv7A1vtKP+Wv0Ba8ubkDiXpcPYZuWpLrd3QkU=",
+        "owner": "storytold",
+        "repo": "lightcraft",
+        "rev": "ec0cda9a6f320e3b32f659f16718f7bce6c3f12f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "storytold",
+        "repo": "lightcraft",
+        "type": "github"
+      }
+    },
     "nix-citizen": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -1395,6 +1433,7 @@
         "hibernation": "hibernation_2",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote_2",
+        "lightcraft": "lightcraft",
         "nix-citizen": "nix-citizen",
         "nix-darwin": "nix-darwin",
         "nix-gaming": "nix-gaming",

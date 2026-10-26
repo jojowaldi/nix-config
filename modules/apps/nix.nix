@@ -97,6 +97,14 @@ in
       inputs.rust-overlay.overlays.default
       inputs.custom-nixpkgs.overlays.default
       (import ../../pkgs)
+      (final: prev: {
+        # upstream package.nix runs the full test suite by default
+        lightcraft =
+          (final.callPackage "${inputs.lightcraft}/nix/package.nix" {
+            inherit (inputs.lightcraft.inputs) craft-fonts;
+          }).overrideAttrs
+            { doCheck = false; };
+      })
     ];
   };
 }

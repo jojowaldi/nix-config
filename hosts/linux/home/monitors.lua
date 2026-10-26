@@ -2,6 +2,12 @@ hl.monitor({
     output = "DP-3",
     mode = "2560x1440@240Hz",
     position = "1920x0",
+    bitdepth = 10,
+    cm = "hdr",
+    sdrbrightness = 1.0,
+    sdrsaturation = 1.1,
+    sdr_min_luminance = 0.005,
+    sdr_max_luminance = 250,
 })
 
 hl.monitor({
@@ -34,3 +40,8 @@ hl.workspace_rule({
     default = true,
 })
 
+
+-- XWayland apps (games) read the X11 primary output
+hl.on("hyprland.start", function()
+    hl.exec_cmd("xrandr --output DP-3 --primary")
+end)

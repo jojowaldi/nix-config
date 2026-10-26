@@ -23,6 +23,10 @@
     proton.url = "github:profiidev/proton/latest";
     positron.url = "github:profiidev/positron/latest";
     hibernation.url = "github:profiidev/hibernation/latest";
+    lightcraft = {
+      url = "github:storytold/lightcraft";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-secrets.url = "git+ssh://git@github.com/jojowaldi/nix-secrets.git?ref=main&shallow=1";
     flake-utils.url = "github:numtide/flake-utils";
