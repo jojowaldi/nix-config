@@ -10,6 +10,19 @@
   # mDNS discovery of network printers/scanners
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
+  # eduroam floods mDNS, avahi spins at 100% CPU: stop it while connected there
+  networking.networkmanager.dispatcherScripts = [
+    {
+      source = pkgs.writeShellScript "avahi-eduroam" ''
+        case "$2" in up | down) ;; *) exit 0 ;; esac
+        if ${pkgs.networkmanager}/bin/nmcli -t -f NAME connection show --active | ${pkgs.gnugrep}/bin/grep -qx eduroam; then
+          ${pkgs.systemd}/bin/systemctl stop avahi-daemon.socket avahi-daemon.service
+        else
+          ${pkgs.systemd}/bin/systemctl start avahi-daemon.socket avahi-daemon.service
+        fi
+      '';
+    }
+  ];
 
   hardware.sane.enable = true;
   # xerox_mfp has no network discovery, so the CLX-3180 needs its IP;
