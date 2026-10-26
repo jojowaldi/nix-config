@@ -49,11 +49,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792863504,
-        "narHash": "sha256-C0cOvvhXXeJsACSio1iMOZqonfTtmNKzQqhK/+EEJgM=",
+        "lastModified": 1793045046,
+        "narHash": "sha256-6FkHKT8ISYCh3Gkw8+YG3hpperMaeKuXHZPUHPormYc=",
         "owner": "profiidev",
         "repo": "corona",
-        "rev": "59c46fe5f8610bc41627fa0dcd8d5112d8ddb3b2",
+        "rev": "865db535d8dea4fee5a96ad093a20689939eba13",
         "type": "github"
       },
       "original": {
