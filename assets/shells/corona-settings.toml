@@ -131,6 +131,11 @@ critical_timeout_ms = 10000
 background_opacity = 1.0
 filter_regex = "sensoren werden aktualisiert"
 
+[notification.battery]
+enabled = true
+low_percent = 20
+critical_percent = 5
+
 [osd]
 enabled = true
 hide_delay_ms = 1500
@@ -162,6 +167,71 @@ current_monitor_only = false
 card_height = 180.0
 backdrop_opacity = 0.4
 
+[launcher]
+close_on_unfocus = true
+width = 800.0
+height = 520.0
+terminal = ""
+preview = true
+section_limit = 5
+search_engine = "g"
+fallbacks = [
+    "web",
+    "files",
+    "terminal",
+]
+quicklinks = []
+snippets = []
+close_all_exclude = []
+currency_refresh_hours = 24
+
+[[launcher.search_engines]]
+keyword = "g"
+name = "Google"
+url = "https://www.google.com/search?q={query}"
+
+[[launcher.search_engines]]
+keyword = "ddg"
+name = "DuckDuckGo"
+url = "https://duckduckgo.com/?q={query}"
+
+[[launcher.search_engines]]
+keyword = "yt"
+name = "YouTube"
+url = "https://www.youtube.com/results?search_query={query}"
+
+[[launcher.search_engines]]
+keyword = "gh"
+name = "GitHub"
+url = "https://github.com/search?q={query}"
+
+[[launcher.search_engines]]
+keyword = "wiki"
+name = "Wikipedia"
+url = "https://en.wikipedia.org/wiki/Special:Search?search={query}"
+
+[launcher.commands]
+
+[launcher.files]
+roots = ["~"]
+excludes = [
+    "node_modules",
+    "target",
+    ".git",
+    ".cache",
+]
+hidden = false
+respect_ignore = true
+
+[launcher.clipboard]
+enabled = true
+images = true
+image_max_mb = 10.0
+image_retention_days = 30
+
+[launcher.translate]
+target = "EN"
+
 [taskbar]
 enabled = true
 icon_size = 36.0
@@ -169,11 +239,46 @@ previews = true
 preview_max_windows = 5
 background_opacity = 1.0
 
+[osk]
+enabled = true
+auto_show = "tablet_mode"
+tablet_source = "hinge"
+layout = "auto"
+language = "auto"
+suggestions = true
+spell_check = true
+learn_words = true
+
 [control_center]
 time_format = "%H:%M"
 date_format = "%a, %d.%m.%Y"
 week_start = "monday"
 background_opacity = 1.0
+sidebar = [
+    "audio",
+    "network",
+    "hotspot",
+    "bluetooth",
+    "printers",
+    "disks",
+    "power",
+    "brightness",
+    "displays",
+    "notifications",
+    "clipboard",
+    "sysinfo",
+    "weather",
+    "calendar",
+    "media",
+]
+quick_actions = [
+    "wifi",
+    "bluetooth",
+    "dnd",
+    "dark_mode",
+    "stay_awake",
+    "airplane",
+]
 
 [weather]
 units = "metric"
@@ -186,6 +291,13 @@ auto_locate = false
 [brightness]
 enable_ddcutil = true
 poll_seconds = 5
+
+[nightlight]
+mode = "manual"
+temperature = 4000
+start = "20:00"
+end = "07:00"
+transition_minutes = 30
 
 [system.monitor]
 poll_seconds = 3
@@ -237,7 +349,7 @@ capabilities = """
 corona = ["secrets"]
 
 [network]
-hosts = ["${setting:url}"]
+lan_hosts = ["${setting:url}"]
 """
 
 [plugins.approved.kdeconnect]
