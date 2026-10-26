@@ -44,7 +44,7 @@ in
     nurl
     nixd
     nixfmt
-    mcp-nixos
+    # mcp-nixos # broken: fastmcp-slim marked broken in nixpkgs (mcp >= 2), re-enable once fixed
     nix-init
   ];
 
