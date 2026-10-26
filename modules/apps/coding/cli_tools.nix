@@ -14,7 +14,7 @@ in
       cargo-expand
       cargo-generate
       cargo-nextest
-      #cargo-llvm-cov
+      (cargo-llvm-cov.overrideAttrs { doCheck = false; }) # upstream tests fail on 0.9.0
       cargo-tauri
       tauri-driver
       cargo-watch
@@ -33,6 +33,7 @@ in
       espflash
       stackit-cli
       awscli2
+      google-cloud-sdk
       pre-commit
       nodejs_26
       bun
@@ -40,7 +41,6 @@ in
       llvmPackages.lld
       wasm-bindgen-cli
       clang.cc
-      antigravity-cli
     ]
     ++ (
       if isLinux then
