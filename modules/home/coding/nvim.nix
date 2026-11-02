@@ -31,7 +31,7 @@
       wgsl-analyzer
       yaml-language-server
       nixfmt
-      gh-actions-language-server
+      actions-languageserver
       gitlab-ci-ls
     ]
     ++ (

@@ -1,13 +1,10 @@
 {
-  inputs,
   pkgs,
   config,
   ...
 }:
 
 {
-  imports = [ inputs.custom-nixpkgs.hyprland.nixosModules.default ];
-
   programs.hyprland = {
     enable = true;
     withUWSM = true;
