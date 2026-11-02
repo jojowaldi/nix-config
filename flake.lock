@@ -744,10 +744,10 @@
     },
     "nix-secrets": {
       "locked": {
-        "lastModified": 1792389946,
-        "narHash": "sha256-kwV1tX6NnWZ4YBT/KLlcg6kOlFBm+l1uASkgZru8Uls=",
+        "lastModified": 1793624130,
+        "narHash": "sha256-090RKvcMyJieJtq/2g5JxKASM36HkCk0sDhHGI2LJg4=",
         "ref": "main",
-        "rev": "15b09c0379af1a58a0ed7931bf41a5ec934f69ae",
+        "rev": "8eecd7157256708250cd0bc40c2bbd8ddf2cc62e",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/jojowaldi/nix-secrets.git"
