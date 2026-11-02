@@ -9,6 +9,7 @@
         columns = 130;
         lines = 32;
       };
+      window.opacity = 0.95;
 
       font.normal = {
         family = "FiraCode Nerd Font Mono";
@@ -17,7 +18,7 @@
 
       colors = {
         primary = {
-          background = "#0A0E14";
+          background = "#000000";
           foreground = "#ffffff";
         };
 

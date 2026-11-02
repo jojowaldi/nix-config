@@ -48,6 +48,9 @@
     ];
   };
 
+  # installs openrgb + its udev rules, loads i2c-dev/i2c-piix4
+  services.hardware.openrgb.enable = true;
+
   environment.systemPackages = with pkgs; [
     deej
     photocraft
