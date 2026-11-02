@@ -1,29 +1,42 @@
-{ self, ... }:
+{
+  lib,
+  self,
+  isLinux,
+  ...
+}:
 
 {
-  imports = with self.modules; [
-    home.sops
+  imports =
+    with self.modules;
+    [
+      home.sops
 
-    home.tools.terminal
-    home.tools.virtualization
+      home.tools.terminal
 
-    home.services.media
+      home.coding.editor
+      home.coding.git
+      home.coding.nvim
 
-    home.hyprland.default
+      home.cli.fastfetch
+      home.cli.fish
+      home.cli.shell
+      home.cli.ssh
+      home.cli.starship
+      home.cli.zoxide
+    ]
+    ++ lib.optionals isLinux [
+      home.tools.virtualization
 
-    home.gui.browser
-    home.gui.theme
+      home.services.media
 
-    home.coding.editor
-    home.coding.git
-    home.coding.nvim
+      home.hyprland.default
 
-    home.cli.fastfetch
-    home.cli.fish
-    home.cli.gpg
-    home.cli.shell
-    home.cli.ssh
-    home.cli.starship
-    home.cli.zoxide
-  ];
+      home.gui.browser
+      home.gui.theme
+
+      home.cli.gpg
+    ]
+    ++ lib.optionals (!isLinux) [
+      home.nix
+    ];
 }

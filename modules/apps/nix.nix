@@ -48,9 +48,15 @@ in
     nix-init
   ];
 
-  system.extraDependencies =
-    (builtins.concatMap collectFlakeInputs (builtins.attrValues inputs))
-    ++ (builtins.attrValues inputs.custom-nixpkgs.sources.${pkgs.stdenv.hostPlatform.system});
+  system =
+    if isLinux then
+      {
+        extraDependencies =
+          (builtins.concatMap collectFlakeInputs (builtins.attrValues inputs))
+          ++ (builtins.attrValues inputs.custom-nixpkgs.sources.${pkgs.stdenv.hostPlatform.system});
+      }
+    else
+      { };
 
   nix.settings = {
     experimental-features = [

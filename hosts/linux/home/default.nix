@@ -54,6 +54,6 @@
   environment.systemPackages = with pkgs; [
     deej
     photocraft
-    lightcraft
+    #lightcraft
   ];
 }

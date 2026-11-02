@@ -64,7 +64,7 @@ Eine modulare, deklarative Multi-Plattform-Systemkonfiguration für **NixOS (Lin
 ├── hosts/
 │   ├── disks/                 # Disko-Festplattenlayouts (BTRFS + LUKS)
 │   ├── linux/                 # NixOS Host-Definitionen (home, laptop, iso)
-│   ├── mac/                   # Darwin Host-Definitionen (work)
+│   ├── mac/                   # Darwin Host-Definitionen (air)
 │   ├── profiles/              # Modulgruppen (general, system, services, apps, home)
 │   └── users/                 # Home-Manager Benutzerprofile (jojowaldi, buergerb, root)
 ├── keys/                      # Öffentliche SSH-Schlüssel für Systemzugriff
@@ -72,6 +72,7 @@ Eine modulare, deklarative Multi-Plattform-Systemkonfiguration für **NixOS (Lin
 ├── modules/                   # Alle System- und Home-Manager-Module
 │   ├── default.nix            # Automatischer Modul-Loader
 │   ├── apps/                  # Anwendungs-Paketsets (coding, creative, gaming, tools)
+│   ├── darwin/                # macOS-Module (system, services, apps; Homebrew-Casks)
 │   ├── home/                  # Home-Manager Module (cli, coding, gui, hyprland, tools)
 │   ├── services/              # Systemdienste (core, gui, media, network, coding)
 │   ├── system/                # Systemnahe Module (boot, kernel, sops, locale, font)
@@ -99,7 +100,7 @@ In `flake.nix` werden zentrale Substituter (Caches) sowie alle Abhängigkeiten d
 - **Outputs**:
   - `modules`: Automatischer Export aller Module unter `modules/`.
   - `nixosConfigurations`: Generiert automatisch Einträge für jedes Verzeichnis in `hosts/linux/` (z. B. `home`, `laptop`, `iso`).
-  - `darwinConfigurations`: Generiert automatisch Einträge für jedes Verzeichnis in `hosts/mac/` (z. B. `work`).
+  - `darwinConfigurations`: Generiert automatisch Einträge für jedes Verzeichnis in `hosts/mac/` (z. B. `air`).
 
 ---
 
@@ -152,7 +153,7 @@ In `hosts/spec.nix` werden standardisierte Typen deklariert:
 | **`home`** | NixOS (x86_64-linux) | Haupt-Workstation, Gaming, AI & Media | Nvidia GPU (proprietär / Open-Kernel-Modul), CUDA, Ollama Server, Jellyfin, CoolerControl Lüftersteuerung, Harmonia Nix-Binary-Cache, No-Sleep, Virtualisierung, Gamedev Tools |
 | **`laptop`** | NixOS (x86_64-linux) | Mobiles Notebook | Intel Xe iGPU (Hardware-Beschleunigung & VAAPI), TLP Powermanagement mit Ladeschwellen (70–80%), Miracast Streaming, Cloudflare WARP, MControlCenter |
 | **`iso`** | NixOS (x86_64-linux) | Rettungs- & Installations-Live-Image | Voll ausgestattetes System, Zstd-Squashfs (Level 3), Root-SSH-Login aktiviert, QEMU Guest Agent, Build-Timestamp im Prompt |
-| **`work`** | nix-darwin (macOS) | macOS Arbeitsumgebung | Nix-Darwin, automatischer Homebrew- & Rosetta-Bootstrap, Touch ID Sudo PAM-Integration, Coding- & Terminal-Tools |
+| **`air`** | nix-darwin (aarch64-darwin) | MacBook Air M4 13" | nix-homebrew (Casks & Mac App Store), Dock/Finder/Trackpad-Defaults, Firewall, Touch ID Sudo, Coding-, Infra- & GUI-Apps |
 
 ---
 
@@ -510,16 +511,191 @@ just install-remote <TARGET_HOST> <TARGET_USER> <TARGET_IP> ~/.ssh/id_ed25519
 
 ### 7.3 macOS / Darwin Bootstrap
 
-Auf einem frischen macOS-System führt `scripts/rebuild.sh` die erforderlichen Bootstrapping-Schritte automatisch durch:
-1. Aktiviert `nix-command` und `flakes` in `~/.config/nix/nix.conf`.
-2. Installiert die **Xcode Command Line Tools** (`xcode-select --install`).
-3. Installiert **Rosetta 2** für x86_64-Emulation.
-4. Installiert **Homebrew** unter `/opt/homebrew`.
-5. Baut die Darwin-Konfiguration und aktiviert `darwin-rebuild`.
+Anleitung, um das MacBook Air (`air`, M4) komplett zurückzusetzen und danach vollständig über nix-darwin, Home-Manager und nix-homebrew zu verwalten. Homebrew läuft mit `cleanup = "zap"`: Alles, was nicht in der Config steht, wird beim nächsten Rebuild deinstalliert.
+
+#### Phase 0 – Vorbereitung auf dem Linux-Rechner
+
+1. Alle Änderungen an `nix-config` committen und pushen. Das Flake sieht nur Dateien, die in Git getrackt sind.
+2. Sicherstellen, dass `nix-secrets` auf dem aktuellen Stand gepusht ist.
+
+#### Phase 1 – Backup & Reset (unwiderruflich)
+
+Nix stellt nur Programme und Einstellungen wieder her, **keine Daten**. Vor dem Reset sichern:
+- Dokumente, Schreibtisch, Downloads, Projekte ohne Git-Remote
+- Obsidian-Vault, Browser-Profil (falls Zen-Sync nicht aktiv), lokale VMs (UTM) und Container-Volumes (OrbStack)
+- Alles andere, was nicht in iCloud oder Git liegt
+
+Dann zurücksetzen: **Systemeinstellungen → Allgemein → Übertragen oder zurücksetzen → Alle Inhalte & Einstellungen löschen**. Der Assistent meldet den Apple-Account ab und entfernt die Aktivierungssperre.
+
+#### Phase 2 – macOS-Einrichtungsassistent
+
+1. Migrationsassistent: **„Nicht jetzt“** (sauberer Start).
+2. Mit dem Apple-Account anmelden (nötig für Mac-App-Store-Apps über `mas`, z. B. WireGuard).
+3. Benutzer anlegen: **Accountname exakt `jojowaldi`**. Die Config erwartet `/Users/jojowaldi`, der vollständige Name ist egal.
+4. **FileVault aktivieren** und **Touch ID einrichten** (wird für `sudo` genutzt). Beides lässt sich nicht über nix-darwin steuern.
+5. Nach dem Setup: **Softwareupdate** auf die aktuelle macOS-Version.
+6. **App Store** öffnen und prüfen, dass du angemeldet bist. Ohne Anmeldung bricht `mas` die Aktivierung ab.
+
+#### Phase 3 – Grundwerkzeuge
 
 ```bash
-just rebuild work
+# Command Line Tools (git, wird auch von Homebrew gebraucht) – Dialog bestätigen und abwarten
+xcode-select --install
+
+# Rosetta 2 für x86_64-Binaries (z. B. in OrbStack-Containern)
+softwareupdate --install-rosetta --agree-to-license
+
+# Nix mit dem offiziellen Installer (NICHT Determinate: die Config nutzt nix.enable = true)
+sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install)
 ```
+
+Terminal schließen und neu öffnen, dann:
+
+```bash
+nix --version
+
+# Flakes für den Bootstrap aktivieren (danach übernimmt nix-darwin /etc/nix/nix.conf)
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
+```
+
+#### Phase 4 – Temporärer SSH-Key für GitHub
+
+`nix-secrets` ist privat und wird per SSH geholt. Die richtigen Keys kommen erst über sops (Phase 7), deshalb zuerst ein Wegwerf-Key:
+
+```bash
+ssh-keygen -t ed25519 -f ~/.ssh/bootstrap -N ""
+ssh-add ~/.ssh/bootstrap
+cat ~/.ssh/bootstrap.pub
+```
+
+Den Public Key auf GitHub unter **Settings → SSH and GPG keys → New SSH key** eintragen, dann testen:
+
+```bash
+ssh -T git@github.com
+```
+
+Der Key heißt bewusst nicht `id_ed25519`, weil sops später genau diesen Pfad belegt.
+
+#### Phase 5 – Repositories klonen
+
+```bash
+sudo mkdir -p /etc/nix-darwin
+sudo chown jojowaldi:staff /etc/nix-darwin
+cd /etc/nix-darwin
+git clone git@github.com:jojowaldi/nix-config.git
+git clone git@github.com:jojowaldi/nix-secrets.git
+```
+
+`nix-secrets` muss neben `nix-config` liegen, weil das `justfile` `../nix-secrets` erwartet. Der Pfad `/etc/nix-darwin/nix-config` entspricht `hostSpec.configPath` (wird von `nh` genutzt).
+
+#### Phase 6 – Erster Build
+
+```bash
+cd /etc/nix-darwin/nix-config
+nix shell nixpkgs#just -c just rebuild air
+```
+
+Das Skript `scripts/rebuild.sh` baut `.#darwinConfigurations.air.system` und aktiviert das System mit `sudo darwin-rebuild switch`. Dabei:
+- installiert nix-homebrew Homebrew unter `/opt/homebrew` (gepinnte Taps aus `flake.lock`)
+- installiert `brew bundle` alle Casks und Mac-App-Store-Apps (dauert, fragt evtl. nach dem Passwort)
+- setzt Hostname (`air`), Dock, Finder, Trackpad, Firewall und Touch-ID-sudo
+- richtet Home-Manager ein (fish, starship, Alacritty, Zed, VS Code, Git, …)
+
+Fragen nach `extra-substituters` / `extra-trusted-public-keys` mit `y` beantworten. Solange nix-darwin noch nicht aktiv ist, bist du kein `trusted-user`. Die Caches greifen deshalb erst ab dem zweiten Build, beim ersten wird eventuell mehr lokal gebaut.
+
+Beim ersten Lauf schlägt `check-sops` am Ende fehl, weil sops noch nicht eingerichtet ist. Das ist erwartet.
+
+Danach ein **neues Terminal** öffnen: zsh startet automatisch fish, `hostname` liefert `air`.
+
+#### Phase 7 – sops einrichten (SSH-Keys & Git-Signing)
+
+Auf dem **Mac** einen eigenen age-Key erzeugen:
+
+```bash
+mkdir -p ~/.config/sops/age
+nix shell nixpkgs#age -c age-keygen -o ~/.config/sops/age/keys.txt
+# gibt "Public key: age1..." aus
+```
+
+Auf dem **Linux-Rechner** (kann die Secrets entschlüsseln) in `nix-secrets/.sops.yaml` den Key eintragen und für `shared.yaml` freigeben:
+
+```yaml
+keys:
+  users:
+    # ...
+    - &jojowaldi_air age1...   # Public Key vom Mac
+creation_rules:
+  - path_regex: shared\.yaml$
+    key_groups:
+      - age:
+          # ...
+          - *jojowaldi_air
+```
+
+Nicht `just sops-add-shared-creation-rules` verwenden: das hängt zusätzlich einen Host-Key-Anker `air` an, den es nicht gibt (der Mac nutzt nur sops in Home-Manager, keinen Host-Key). Danach neu verschlüsseln, committen und pushen:
+
+```bash
+cd /etc/nixos/nix-config
+just rekey
+```
+
+Zurück auf dem **Mac**:
+
+```bash
+cd /etc/nix-darwin/nix-config
+just rebuild          # holt das neue nix-secrets und aktiviert sops
+just check-sops
+ls -l ~/.ssh          # id_ed25519 und id_ed25519.pub sind jetzt da
+ssh -T git@github.com
+```
+
+Jetzt den Wegwerf-Key entfernen, lokal und auf GitHub:
+
+```bash
+ssh-add -d ~/.ssh/bootstrap
+rm ~/.ssh/bootstrap ~/.ssh/bootstrap.pub
+```
+
+`just rebuild` hat `flake.lock` (neuer `nix-secrets`-Stand) geändert. Diese Änderung committen und pushen, Git-Signing funktioniert jetzt.
+
+#### Phase 8 – Manuelle Restschritte
+
+Diese Dinge lassen sich nicht deklarativ setzen:
+- **Datenschutz & Sicherheit:** Vicinae (Bedienungshilfen), Stats und Hidden Bar die angefragten Rechte geben. Vicinae, Stats und Hidden Bar starten über launchd-Agents automatisch beim Login.
+- **Netzwerk-/Systemerweiterungen** von Tailscale und OrbStack beim ersten Start erlauben.
+- **Logins:** Bitwarden, Tailscale, Zen-Sync, Obsidian-Sync, Claude, `gh auth login`.
+- **WireGuard:** Tunnel importieren.
+
+#### Alltag
+
+| Aufgabe | Befehl / Ort |
+| :--- | :--- |
+| Änderungen anwenden | `just rebuild` |
+| Alles aktualisieren (inkl. Homebrew-Casks, Taps sind in `flake.lock` gepinnt) | `just update && just rebuild` |
+| Nix-Paket hinzufügen | `environment.systemPackages` in `modules/darwin/apps/...` |
+| Cask hinzufügen | `homebrew.casks` in `modules/darwin/apps/...` |
+| Mac-App-Store-App hinzufügen | `homebrew.masApps` (ID über `mas search <name>`) |
+| Vorherige Generation | `sudo darwin-rebuild --rollback` |
+
+Nie manuell `brew install` ausführen: wegen `cleanup = "zap"` wird alles Undeklarierte beim nächsten Rebuild samt Einstellungen entfernt.
+
+#### Fehlerbehebung macOS
+
+- **`Unexpected files in /etc, aborting activation`**: Die genannten Dateien (meist `/etc/nix/nix.conf`, `/etc/zshrc`, `/etc/bashrc`) umbenennen und neu bauen:
+  ```bash
+  sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before-nix-darwin
+  ```
+- **`Build user group has mismatching GID`**: In `hosts/mac/air/default.nix` die in der Meldung genannte GID setzen, z. B. `ids.gids.nixbld = 30000;`.
+- **`sudo darwin-rebuild` kann `nix-secrets` nicht holen** (root hat keinen SSH-Zugriff): den SSH-Agent durchreichen:
+  ```bash
+  sudo --preserve-env=SSH_AUTH_SOCK ./result/sw/bin/darwin-rebuild switch --flake .#air
+  ```
+- **`mas`-Fehler „not signed in“**: Im App Store anmelden, dann `just rebuild`.
+- **Nach einem macOS-Update fehlen `nix` und die Nix-Befehle** (macOS überschreibt `/etc/zshrc` und `/etc/bashrc`):
+  ```bash
+  sudo /nix/var/nix/profiles/system/activate
+  ```
 
 ---
 
