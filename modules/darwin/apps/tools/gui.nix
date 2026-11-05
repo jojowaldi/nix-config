@@ -7,10 +7,13 @@
   ];
 
   homebrew.casks = [
+    "aldente"
     "bitwarden"
+    "creality-print"
+    "google-chrome"
     "obsidian"
-    "stats"
     "vicinae"
+    "vorssaint"
     "zen"
   ];
 
@@ -28,7 +31,7 @@
       })
       {
         vicinae = "/Applications/Vicinae.app";
-        stats = "/Applications/Stats.app";
+        vorssaint = "/Applications/Vorssaint.app";
         hidden-bar = "/Applications/Nix Apps/Hidden Bar.app";
       };
 }

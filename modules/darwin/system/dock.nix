@@ -18,7 +18,7 @@
     persistent-apps = [
       "/System/Applications/Apps.app"
       "/System/Applications/Messages.app"
-      "/Applications/Zen.app"
+      "/Applications/Google Chrome.app"
       "/System/Applications/Mail.app"
       "/System/Applications/Music.app"
       "/System/Applications/System Settings.app"

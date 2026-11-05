@@ -662,7 +662,7 @@ rm ~/.ssh/bootstrap ~/.ssh/bootstrap.pub
 #### Phase 8 – Manuelle Restschritte
 
 Diese Dinge lassen sich nicht deklarativ setzen:
-- **Datenschutz & Sicherheit:** Vicinae (Bedienungshilfen), Stats und Hidden Bar die angefragten Rechte geben. Vicinae, Stats und Hidden Bar starten über launchd-Agents automatisch beim Login.
+- **Datenschutz & Sicherheit:** Vicinae (Bedienungshilfen), Vorssaint und Hidden Bar die angefragten Rechte geben. Vicinae, Vorssaint und Hidden Bar starten über launchd-Agents automatisch beim Login.
 - **Netzwerk-/Systemerweiterungen** von Tailscale und OrbStack beim ersten Start erlauben.
 - **Logins:** Bitwarden, Tailscale, Zen-Sync, Obsidian-Sync, Claude, `gh auth login`.
 - **WireGuard:** Tunnel importieren.
