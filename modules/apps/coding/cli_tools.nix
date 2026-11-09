@@ -41,6 +41,7 @@ in
       llvmPackages.lld
       wasm-bindgen-cli
       clang.cc
+      antigravity-cli
     ]
     ++ (
       if isLinux then
