@@ -21,7 +21,12 @@
     "sd_mod"
     "sr_mod"
   ];
-  boot.initrd.kernelModules = [ ];
+  # connector numbers (DP-n, HDMI-A-n) are shared by all GPUs; nvidia must claim them before amdgpu
+  boot.initrd.kernelModules = [
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_drm"
+  ];
   boot.kernelModules = [
     "kvm-amd"
     "sg"
