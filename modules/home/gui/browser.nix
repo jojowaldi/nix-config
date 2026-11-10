@@ -65,7 +65,7 @@ in
   home.packages = with pkgs; [
     google-chrome
     pkgsUnstableNoCuda.firefox
-    brave
+    #brave
     chromium
   ];
 
