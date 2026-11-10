@@ -291,7 +291,7 @@
     "diagnostics": false,
     "metrics": false
   },
-  "vim_mode": true,
+  "vim_mode": false,
   "vim": {
     "use_smartcase_find": true,
     "toggle_relative_line_numbers": true
