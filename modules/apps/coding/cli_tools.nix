@@ -18,12 +18,20 @@ in
       cargo-tauri
       tauri-driver
       cargo-watch
-      dioxus-cli
+      # FIXME: upstream missing zstd/system libs for cargoUseSystemLibs (0.7.10), revert once fixed
+      (dioxus-cli.overrideAttrs (old: {
+        dontCargoUseSystemLibs = true;
+        buildInputs = (old.buildInputs or [ ]) ++ [ zstd ];
+      }))
       postgresql
       git-cliff
       act
       maven
-      sea-orm-cli
+      # FIXME: upstream missing sqlite in buildInputs for cargoUseSystemLibs (2.0.4), revert once fixed
+      (sea-orm-cli.overrideAttrs (old: {
+        dontCargoUseSystemLibs = true;
+        buildInputs = (old.buildInputs or [ ]) ++ [ sqlite ];
+      }))
       wasm-pack
       ldproxy
       pkg-config
@@ -46,9 +54,16 @@ in
     ++ (
       if isLinux then
         (with pkgs; [
-          release-plz
+          # FIXME: upstream missing zstd/system libs for cargoUseSystemLibs (0.4.1), revert once fixed
+          (release-plz.overrideAttrs (old: {
+            dontCargoUseSystemLibs = true;
+            buildInputs = (old.buildInputs or [ ]) ++ [ zstd ];
+          }))
           esp-generate
-          espup
+          # FIXME: upstream missing aws-lc/system libs for cargoUseSystemLibs (0.19.0), revert once fixed
+          (espup.overrideAttrs {
+            dontCargoUseSystemLibs = true;
+          })
           probe-rs-tools
           kdePackages.qtdeclarative
         ])

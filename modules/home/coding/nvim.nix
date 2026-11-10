@@ -9,7 +9,10 @@
       luarocks
       lua
       tree-sitter
-      asm-lsp
+      # FIXME: upstream asm-lsp 0.10.1 missing zstd in buildInputs, revert once fixed
+      (asm-lsp.overrideAttrs (old: {
+        buildInputs = (old.buildInputs or [ ]) ++ [ zstd ];
+      }))
       basedpyright
       cmake-language-server
       docker-compose-language-service
