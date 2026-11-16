@@ -20,10 +20,10 @@ Eine modulare, deklarative Multi-Plattform-Systemkonfiguration für **NixOS (Lin
    - [Festplattenverschlüsselung (LUKS + BTRFS + TPM2)](#32-festplattenverschlüsselung-luks--btrfs--tpm2)
    - [Secure Boot (Lanzaboote & sbctl)](#33-secure-boot-lanzaboote--sbctl)
    - [Authentifizierung & Keyring](#34-authentifizierung--keyring)
-4. [Desktop-Umgebung & UI (Hyprland, SDDM, Noctalia, Vicinae)](#4-desktop-umgebung--ui)
+4. [Desktop-Umgebung & UI (Hyprland, SDDM, Noctalia)](#4-desktop-umgebung--ui)
    - [Display Manager (SilentSDDM)](#41-display-manager-silentsddm)
    - [Hyprland & Lua-Konfiguration](#42-hyprland--lua-konfiguration)
-   - [Noctalia Shell & Vicinae Launcher](#43-noctalia-shell--vicinae-launcher)
+   - [Noctalia Shell](#43-noctalia-shell)
    - [Vollständige Tastenkombinationen (Keybindings)](#44-vollständige-tastenkombinationen-keybindings)
 5. [Entwicklungsumgebung, Software & Dienste](#5-entwicklungsumgebung-software--dienste)
    - [Shell (Fish + Starship + Direnv)](#51-shell-fish--starship--direnv)
@@ -59,8 +59,7 @@ Eine modulare, deklarative Multi-Plattform-Systemkonfiguration für **NixOS (Lin
 │   ├── hyprland/              # Hyprland Lua-Konfigurationen (Keybinds, Style, IO)
 │   ├── images/                # Profilbilder und Grafiken
 │   ├── other/                 # App-spezifische Configs (Zed, GPU Screen Recorder)
-│   ├── shells/                # Noctalia- und DMS-Einstellungen
-│   └── vicinae.json           # Vicinae Launcher Konfiguration
+│   └── shells/                # Noctalia- und DMS-Einstellungen
 ├── hosts/
 │   ├── disks/                 # Disko-Festplattenlayouts (BTRFS + LUKS)
 │   ├── linux/                 # NixOS Host-Definitionen (home, laptop, iso)
@@ -164,7 +163,7 @@ Die Profile in `hosts/profiles/` fassen Module thematisch zusammen:
 - **`system.nix`**: Bootloader, Firmware, Schriftarten, System-Basis, Kernel, Lokalisierung (Berlin / Deutsch) und SOPS-Verschlüsselung.
 - **`services.nix`**: PipeWire Audio, Bluetooth, BTRFS-Scrub, GPG/Keyring, Netzwerk, SSHD, Tailscale, Druckdienste, SDDM, Noctalia Desktop-Shell und Docker.
 - **`apps.nix`**: Vollständige Softwareausstattung: CLI-Utilities, GUI-Tools, Media, Proton-Apps, Steam, Minecraft, Grafik-/Videobearbeitung, Programmiersprachen und IDEs.
-- **`home.nix`**: Home-Manager-Module für Fish, Fastfetch, Starship, Zoxide, Git (Delta/Signing), Neovim, Zed, Browser, Themes, Hyprland und Vicinae.
+- **`home.nix`**: Home-Manager-Module für Fish, Fastfetch, Starship, Zoxide, Git (Delta/Signing), Neovim, Zed, Browser, Themes und Hyprland.
 
 ---
 
@@ -251,19 +250,13 @@ Hyprland wird modular über Lua-Skripte aus `assets/hyprland/` konfiguriert:
 - **`style.lua`**: Fensterdekorationen, Ränder, Schatten, Unschärfe (Blur), Animationen und Tiling-Layouts (Dwindle).
 - **`layers.lua`**: Blur- und Layer-Regeln für Panels, Notifications und OSD.
 - **`io.lua`**: Touchpad-Gesten, Maus-Empfindlichkeit, Tastaturlayout.
-- **`vicinae.lua` & `positron.lua`**: Fensterregeln für Launcher und Werkzeuge.
+- **`positron.lua`**: Fensterregeln für Werkzeuge.
 
 ---
 
-### 4.3 Noctalia Shell & Vicinae Launcher
+### 4.3 Noctalia Shell
 
 - **Noctalia Shell** (`modules/services/gui/noctalia-legacy.nix`): Moderne Desktop-Shell mit Statusleiste, Lautstärke-/Helligkeits-OSD, Notification-Center und Session-Management.
-- **Vicinae** (`modules/home/hyprland/vicinae.nix`): Leistungsfähiger Spotlight/Raycast-ähnlicher Launcher mit integrierter **Soulver-Berechnungs-Engine** und Extensions:
-  - `vicinae-nix`, `vicinae-power-profile`, `vicinae-it-tools`, `vicinae-port-killer`
-  - `vicinae-hypr-keybinds` (Tastaturkürzel-Suche)
-  - `vicinae-vscode-recents`, `vicinae-zed-recents`, `vicinae-jetbrains-recent-projects`
-  - `home-assistant-vicinae-extension`, `spotify-player`, `qr-code`, `can-i-use`, `lucide-icons`
-  - Native Messaging Host für Chromium, Brave und Google Chrome.
 
 ---
 
@@ -274,8 +267,6 @@ Alle Tastenkombinationen sind in `assets/hyprland/keybinds.lua` und `assets/hypr
 #### Anwendungs- & Systemsteuerung
 | Tastenkombination | Befehl / Aktion |
 | :--- | :--- |
-| `Super + Space` oder `Alt + Space` | `vicinae toggle` (App-Launcher öffnen/schließen) |
-| `Super + V` | `vicinae deeplink vicinae://launch/clipboard/history` (Zwischenablage) |
 | `Super + T` | `alacritty` (Terminal starten) |
 | `Super + B` | `google-chrome` (Browser starten) |
 | `Super + Q` | Aktives Fenster schließen (`window.close`) |

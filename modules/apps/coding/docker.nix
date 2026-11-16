@@ -11,10 +11,6 @@ let
         helm-git
       ];
     };
-
-  wrapped-helmfile = pkgs.helmfile-wrapped.override {
-    inherit (wrapped-kubernetes-helm) pluginsDir;
-  };
 in
 {
   environment.systemPackages = with pkgs; [
@@ -23,7 +19,6 @@ in
     docker-compose
     terraform
     k9s
-    #wrapped-helmfile
     wrapped-kubernetes-helm
     kubectl
     kubevirt

@@ -1,7 +1,4 @@
 -- Application Launchers
-hl.bind("ALT + space", hl.dsp.exec_cmd("vicinae toggle"))
-hl.bind("SUPER + space", hl.dsp.exec_cmd("vicinae toggle"))
-hl.bind("SUPER + V", hl.dsp.exec_cmd("vicinae deeplink vicinae://launch/clipboard/history"))
 hl.bind("SUPER + T", hl.dsp.exec_cmd("alacritty"))
 hl.bind("SUPER + B", hl.dsp.exec_cmd("google-chrome"))
 hl.bind("SUPER + Q", hl.dsp.window.close())

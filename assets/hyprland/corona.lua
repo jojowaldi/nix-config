@@ -1,3 +1,7 @@
+hl.bind("ALT + space", hl.dsp.exec_cmd("corona ipc launcher toggle"))
+hl.bind("SUPER + space", hl.dsp.exec_cmd("corona ipc launcher toggle"))
+hl.bind("SUPER + V", hl.dsp.exec_cmd("corona ipc launcher toggle --command clipboard"))
+
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("corona ipc capture screenshot"))
 hl.bind("SUPER + C", hl.dsp.exec_cmd("corona ipc capture color-picker"))
 hl.bind("SUPER + L", hl.dsp.exec_cmd("corona ipc session lock"))

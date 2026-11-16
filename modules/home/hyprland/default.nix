@@ -25,7 +25,6 @@ in
 {
   imports = [
     ./corona.nix
-    ./vicinae.nix
     ./positron.nix
   ];
 

@@ -52,7 +52,6 @@ widget_type = "tray"
 [bar.main.end.options]
 blacklist = [
     "spotify",
-    "vicinae",
     "udiskie",
 ]
 
