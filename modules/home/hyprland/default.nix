@@ -42,6 +42,7 @@ in
     portalPackage = null;
 
     extraConfig = builtins.concatStringsSep "\n" [
+      "AUTOSTART_APPS = ${lib.boolToString (hostSpec.hostname == "home")}"
       base
       hostSpec.hyprlandMonitorConfig
       io

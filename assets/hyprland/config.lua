@@ -13,6 +13,9 @@ hl.config({
 hl.on("hyprland.start", function()
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     hl.exec_cmd("systemctl --user start hyprland-session.target")
-    hl.exec_cmd("discord")
-    hl.exec_cmd("spotify")
+    -- AUTOSTART_APPS is set per host in modules/home/hyprland/default.nix
+    if AUTOSTART_APPS then
+        hl.exec_cmd("discord")
+        hl.exec_cmd("spotify")
+    end
 end)

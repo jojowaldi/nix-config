@@ -15,7 +15,7 @@
     };
   };
 
-  services.easyeffects.enable = true;
+  services.easyeffects.enable = hostSpec.hostname == "home";
 
   # deej mixer hardware only exists at the home desktop
   systemd.user.services.deej = lib.mkIf (hostSpec.hostname == "home") {
