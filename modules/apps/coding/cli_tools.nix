@@ -14,24 +14,16 @@ in
       cargo-expand
       cargo-generate
       cargo-nextest
-      (cargo-llvm-cov.overrideAttrs { doCheck = false; }) # upstream tests fail on 0.9.0
+      cargo-llvm-cov
       cargo-tauri
       tauri-driver
       cargo-watch
-      # FIXME: upstream missing zstd/system libs for cargoUseSystemLibs (0.7.10), revert once fixed
-      (dioxus-cli.overrideAttrs (old: {
-        dontCargoUseSystemLibs = true;
-        buildInputs = (old.buildInputs or [ ]) ++ [ zstd ];
-      }))
+      dioxus-cli
       postgresql
       git-cliff
       act
       maven
-      # FIXME: upstream missing sqlite in buildInputs for cargoUseSystemLibs (2.0.4), revert once fixed
-      (sea-orm-cli.overrideAttrs (old: {
-        dontCargoUseSystemLibs = true;
-        buildInputs = (old.buildInputs or [ ]) ++ [ sqlite ];
-      }))
+      sea-orm-cli
       wasm-pack
       ldproxy
       pkg-config
@@ -54,16 +46,9 @@ in
     ++ (
       if isLinux then
         (with pkgs; [
-          # FIXME: upstream missing zstd/system libs for cargoUseSystemLibs (0.4.1), revert once fixed
-          (release-plz.overrideAttrs (old: {
-            dontCargoUseSystemLibs = true;
-            buildInputs = (old.buildInputs or [ ]) ++ [ zstd ];
-          }))
+          release-plz
           esp-generate
-          # FIXME: upstream missing aws-lc/system libs for cargoUseSystemLibs (0.19.0), revert once fixed
-          (espup.overrideAttrs {
-            dontCargoUseSystemLibs = true;
-          })
+          espup
           probe-rs-tools
           kdePackages.qtdeclarative
         ])
